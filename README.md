@@ -5,7 +5,7 @@
 </h1>
 
 <h3 align="center">
-  A mobile application urban troubleshoot
+  A mobile application for Urban troubleshoot
 </h3>
   
 ## 🚀 Technologies
