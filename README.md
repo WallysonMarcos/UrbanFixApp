@@ -5,10 +5,9 @@
 </h1>
 
 <h3 align="center">
-  React Native Application for support Urban Issues
+  Mobile application for support urban issues
 </h3>
- 
-## 💇🏻‍♂️ About the project 
+  
 ## 🚀 Technologies
 
 Technologies that I used to develop this mobile client
