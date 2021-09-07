@@ -5,7 +5,7 @@
 </h1>
 
 <h3 align="center">
-  Mobile application for support urban issues
+  A mobile application urban troubleshoot
 </h3>
   
 ## 🚀 Technologies
