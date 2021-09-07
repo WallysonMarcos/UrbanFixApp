@@ -17,7 +17,7 @@ Technologies that I used to develop this mobile client
 - [React Native](https://reactnative.dev/)
 - [React Navigation](https://reactnavigation.org/)
 - [React Native Vector Icons](https://github.com/oblador/react-native-vector-icons)
-- [UnForm](https://unform.dev/) (https://rocketseat.com.br/)
+- [UnForm](https://unform.dev/)
 - [Yup](https://github.com/jquense/yup)
 - [Styled Components](https://styled-components.com/)
 - [Axios](https://github.com/axios/axios) 
