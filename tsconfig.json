@@ -8,6 +8,7 @@
     "lib": [
       "es6"
     ],
+    "types": ["jest", "styled-components-react-native"],
     "moduleResolution": "node",
     "noEmit": true,
     "strict": true,

@@ -1,97 +1,51 @@
-import { StyleSheet } from 'react-native';
+import styled from 'styled-components/native';
 import Constants from '../../../Constants';
 
-export default StyleSheet.create({
-    container: {
-        flex: 1,
-        paddingHorizontal: 10,
-        backgroundColor: Constants.colorBackground,
-        justifyContent: 'center'
+export const Container = styled.View`
+  flex: 1;
+  align-items: center;
+  justify-content: center;
+  align-items: center;
+  background: ${Constants.colorBackground};
 
-    },
+`;
 
-    content: {
-        height: 300,
-        padding: 10,
-        marginHorizontal: 5,
-        backgroundColor: Constants.colorBackground,
-        borderRadius: 5,
-        elevation: 5,
-        paddingTop: 70,
-        alignItems: 'center',
-        marginTop: '30%'
-    },
+export const Content = styled.View`
+  flex-direction: column;
+  margin: 10px;
+  border-radius: 5px;
+  padding: 10px;
+  align-items: center;
+  justify-content: center;
 
-    logoContainer: {
-        maxHeight: 200,
-        position: 'absolute',
-        top: -60,
-        alignSelf: 'center',
+`;
 
-    },
+export const LogoBottom = styled.Image`
+  width: 120px;
+  height: 120px;
+`;
 
-    logoImg: {
-        margin: 10,
-        width: 120,
-        height: 120,
-        resizeMode: 'center',
-    },
 
-    inputIcon: {
-        width: 30,
-        justifyContent: 'center'
-    },
-    inputContainer: {
-        width: '100%',
-        backgroundColor: '#fff',
-        marginTop: 8,
-        paddingHorizontal: 10,
-        borderRadius: 3,
-        elevation: 1,
-        flexDirection: 'row',
-        alignContent: 'center',
-    },
+export const Title = styled.Text`
+  font-size: 22px;
+  color:  ${Constants.colorPrimary};
+  font-family: 'Archivo-Medium';
+  margin: 10px 0px 10px;
+`;
 
-    
-    loginInput: {
-        width: '100%',
-        backgroundColor: '#fff',
-        marginTop: 8,
-        padding: 10,
-        borderRadius: 3,
-        elevation: 1
-    },
 
-    loginButton: {
-        width: '100%',
-        height: 50,
-        flexDirection: 'row',
-        backgroundColor: Constants.colorPrimary,
-        padding: 10,
-        marginBottom: 15,
-        marginTop: 10,
-        alignItems: 'center',
-        justifyContent: 'center',
-        borderRadius: 5,
-        elevation: 2,
-        shadowColor: '#000'
 
-    },
 
-    inputData: {
-        flex: 1
-    },
 
-    loginButtonText: {
-        fontWeight: 'bold',
-        color: '#fff',
-        marginLeft: 10
-    },
+export const ButtonSubmit = styled.TouchableOpacity`
+  background: ${Constants.colorPrimary};
+  margin: 10px 0px;
+  padding: 12px;
+  border-radius: 5px;
+  align-items: center;
+`;
 
-    loginRegister: {
-        fontWeight: 'bold',
-        color: Constants.colorGray,
-        marginTop: 5,
-        textAlign: 'center',
-    },
-});
+
+export const TextButton = styled.Text`
+  color:  ${Constants.colorPrimary};
+`;

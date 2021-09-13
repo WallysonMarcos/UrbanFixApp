@@ -2,7 +2,7 @@ import React from 'react';
 import { View, StatusBar } from 'react-native';
 import { NavigationContainer } from '@react-navigation/native'; 
 
-import SignIn from "./Views/Auth/SignIn/SignIn";
+import SignIn from "./Views/Auth/SignIn";
 
 const App: React.FC = () => (
   <NavigationContainer>
