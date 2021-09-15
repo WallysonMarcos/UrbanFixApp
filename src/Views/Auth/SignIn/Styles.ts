@@ -12,7 +12,7 @@ export const Container = styled.View`
 
 export const Content = styled.View`
   flex-direction: column;
-  margin: 10px;
+  margin: 40px;
   border-radius: 5px;
   padding: 10px;
   align-items: center;
@@ -27,10 +27,10 @@ export const LogoBottom = styled.Image`
 
 
 export const Title = styled.Text`
-  font-size: 22px;
+  font-size: ${Constants.fontLarger}px;
   color:  ${Constants.colorPrimary};
-  font-family: 'Archivo-Medium';
-  margin: 10px 0px 10px;
+  margin: 10px 0px 30px;
+  font-weight: 700;
 `;
 
 
@@ -38,14 +38,18 @@ export const Title = styled.Text`
 
 
 export const ButtonSubmit = styled.TouchableOpacity`
+  flex-direction: row;
   background: ${Constants.colorPrimary};
   margin: 10px 0px;
   padding: 12px;
   border-radius: 5px;
+  font-weight: 500;
   align-items: center;
+  justify-content: center;
 `;
 
 
 export const TextButton = styled.Text`
-  color:  ${Constants.colorPrimary};
+  color:  ${Constants.colorLigth};
+  margin-left: 10px;
 `;

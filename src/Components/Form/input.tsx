@@ -2,7 +2,7 @@
 import { TextInput, TextInputProps } from 'react-native';
 
 import { useField } from '@unform/core';
-//import Icon from 'react-native-vector-icons/Feather';
+import Icon from 'react-native-vector-icons/MaterialIcons';
 
 import Constants from '../../Constants'
 
@@ -73,7 +73,7 @@ const Input: React.FC<InputProps> = ({ name, icon, onChangeText, ...rest }) => {
     return (
         <InputContainer lError={errored} lFocused={focused} lBlured={blured} >
             <IconContainer>
-                {/* <Icon name={icon} size={20} color={Constants.colorSecundary} /> */}
+                <Icon name={icon} size={20} color={Constants.colorSecundary} /> 
             </IconContainer>
             <InputContent
                 onFocus={handleInputFocus}

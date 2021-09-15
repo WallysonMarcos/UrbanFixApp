@@ -2,13 +2,17 @@ import React from 'react';
 import { View, StatusBar } from 'react-native';
 import { NavigationContainer } from '@react-navigation/native'; 
 
-import SignIn from "./Views/Auth/SignIn";
+import { AuthProvider } from './Context/Auth';
+
+import Routes from './Routers';
 
 const App: React.FC = () => (
   <NavigationContainer>
     <StatusBar barStyle="dark-content" />
     <View style={{ flex: 1, backgroundColor: '#fff' }}>
-      <SignIn />
+      <AuthProvider>
+        <Routes />
+      </AuthProvider>
     </View>
   </NavigationContainer>
 );

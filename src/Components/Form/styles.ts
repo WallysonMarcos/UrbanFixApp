@@ -10,7 +10,7 @@ interface PropsInput {
 
 export const InputContainer= styled.View<PropsInput>`
     width: 100%;  
-    height: 40px;
+    height: 45px;
     flex-direction: row;;
     align-items: center; 
     padding: 0px 10px;  
