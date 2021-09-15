@@ -2,12 +2,13 @@ import React, { useRef, useState } from 'react';
 import { SubmitHandler, FormHandles } from '@unform/core';
 import { Form } from '@unform/mobile';
 import * as Yup from 'yup';
+import Icon from 'react-native-vector-icons/MaterialIcons';
 
-import { Container, Title, Content, ButtonSubmit, TextButton, LogoBottom } from './styles';
+import { Container, Title, Content, ButtonSubmit, TextButton, LogoBottom } from './Styles';
  
 import { Input } from '../../../Components/Form'; 
-//import { useAuth } from '../../../context/Users';
-
+import { useAuth } from '../../../Context/Auth';
+ 
 interface SignInFormData {
   login: string;
   password: string;
@@ -20,19 +21,19 @@ interface ValidationErrorData {
 
 interface  ErrorData {
   path: React.ReactText;
-  message: any;
+  message: string;
 }
 
 
 const SignIn: React.FC = () => {
 
   const formRef = useRef<FormHandles>(null);
-  //const { user, handleAuth, loading } = useAuth();
+  const { user, handleAuth, loading } = useAuth();
 
 
-  const handleSubmit : SubmitHandler<SignInFormData> =  async( data ) => {
+  const handleSubmit : SubmitHandler<SignInFormData> =  async( data ) => { 
+
       try {
-
         formRef.current?.setErrors({});
         const schema = Yup.object().shape({
           login: Yup.string().required('Login é obrigatório'),
@@ -43,19 +44,20 @@ const SignIn: React.FC = () => {
           abortEarly: false,
         });
 
+        console.log(data)
         const { login, password } = data;
 
-        //handleAuth({ login, password });
+        handleAuth({ login, password });
 
       } catch (err) {
 
-        // var validationErrors: ValidationErrorData = {};
-        // if (err instanceof Yup.ValidationError) {
-        //   err.inner.forEach( (error: ErrorData) => {
-        //     validationErrors[error.path] = error.message;
-        //   });
-        //   formRef.current?.setErrors(validationErrors);
-        // }
+        var validationErrors: ValidationErrorData = {};
+        if (err instanceof Yup.ValidationError) {
+          err.inner.forEach( (error: ValidationErrorData)  => { 
+            validationErrors[error.path] = error.message;
+          });
+          formRef.current?.setErrors(validationErrors);
+        }
 
       }
       return false;
@@ -65,15 +67,14 @@ const SignIn: React.FC = () => {
     <Container>
       <Content>
         {/* <LogoBottom source={logo}  resizeMode={'stretch'}/> */}
-        <Title>Nome da empresa ltda</Title>
-        <Title>00.000.000/0001-00</Title>
+        <Title>UrbanFix App</Title> 
 
         <Form ref={formRef} onSubmit={handleSubmit}>
-          <Input icon="smartphone" placeholder="Login" name="login" keyboardType={'default'} />
-          <Input icon="smartphone"  placeholder="Senha" name="password" keyboardType={'number-pad'} secureTextEntry />
+          <Input icon="smartphone" placeholder="telefone" name="login" keyboardType={'default'} />
+          <Input icon="lock"  placeholder="senha" name="password" keyboardType={'number-pad'} secureTextEntry />
            
           <ButtonSubmit  onPress={() => formRef?.current?.submitForm()} >
-            {/* <Feather name="log-in" size={20} color='white' /> */}
+            <Icon name="input" size={20} color='white' /> 
             <TextButton allowFontScaling={false}  >ENTRAR</TextButton>
           </ButtonSubmit>
         </Form>
