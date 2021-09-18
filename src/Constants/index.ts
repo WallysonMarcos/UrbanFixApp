@@ -11,6 +11,7 @@ function normalize(_size: number) {
 export default {
   colorPrimary: '#054990',
   colorDark: '#2075D9',
+  colorError: '#8E2107',
   colorSecundary: '#57afdf',
   colorLigth: '#e5e5e5',
   colorWarning: '#D5A419',

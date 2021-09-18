@@ -9,8 +9,8 @@ interface PropsInput {
 };
 
 export const InputContainer= styled.View<PropsInput>`
-    width: 100%;  
     height: 45px;
+    width: 100%;
     flex-direction: row;;
     align-items: center; 
     padding: 0px 10px;  
@@ -26,8 +26,8 @@ export const InputContainer= styled.View<PropsInput>`
     `};
 
     ${({ lError }) => lError && css`
-        border-color: ${Constants.colorWarning};
-        color: ${Constants.colorWarning};
+        border-color: ${Constants.colorError};
+        color: ${Constants.colorError};
     `};
 
     /* ${({ lBlured }) => lBlured && css`
@@ -38,6 +38,9 @@ export const InputContainer= styled.View<PropsInput>`
 
 export const IconContainer = styled.View`
     width: 30px;
+    ${({ noIcon }) => noIcon && css`
+        display: none;
+    `};
     justify-content: center;
 `;
 

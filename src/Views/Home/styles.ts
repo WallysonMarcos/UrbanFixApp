@@ -1,5 +1,5 @@
 import styled from 'styled-components/native';
-import Constants from '../../../Constants';
+import Constants from '../../Constants';
 
 export const Container = styled.View`
   flex: 1;
@@ -19,12 +19,7 @@ export const Content = styled.View`
   justify-content: center;
 
 `;
-
-export const LogoBottom = styled.Image`
-  width: 120px;
-  height: 120px;
-`;
-
+ 
 
 export const Title = styled.Text`
   font-size: ${Constants.fontLarger}px;
@@ -33,29 +28,24 @@ export const Title = styled.Text`
   font-weight: 700;
 `;
 
-export const RegisterText = styled.Text`
-  font-size: ${Constants.fontMedium}px;
-  color:  ${Constants.colorPrimary};
-  margin: 5px 0px;
-  font-weight: 500;
-`;
 
 
 
 
 export const ButtonSubmit = styled.TouchableOpacity`
-  flex-direction: row;
-  background: ${Constants.colorPrimary};
-  margin: 20px 0px;
+  flex-direction: row; 
+  background: ${Constants.colorError};
+  margin: 10px 0px;
   padding: 12px;
-  border-radius: 5px;
-  font-weight: 500;
+  border-radius: 5px;  
   align-items: center;
-  justify-content: center;
+  justify-content: center; 
+  
 `;
 
 
 export const TextButton = styled.Text`
   color:  ${Constants.colorLigth};
   margin-left: 10px;
+  font-weight: 700;
 `;

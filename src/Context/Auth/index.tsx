@@ -5,9 +5,18 @@ import { Alert } from 'react-native';
 import api from '../../Services/api';
 
 interface AuthCredentials {
-    login: string;
+    username: string;
     password: string;
 }
+
+interface SignInData {
+    name: string;
+    lastName: string;
+    cellNumber: string;
+    email: string;
+    password: string;
+}
+
 
 interface UserContext {
     name: string;
@@ -18,7 +27,8 @@ interface AuthContextData {
     loading: boolean;
     user: UserContext | null;
     handleAuth(credentials: AuthCredentials): Promise<void>,
-    handleSingOut(): void;
+    handleSignOut(): Promise<void>;
+    handleSignIn(data: SignInData): Promise<void>,
 }
 
 
@@ -61,6 +71,7 @@ export const AuthProvider: React.FC = ({ children }) => {
     //Função responsavel por autentição do usuário
     const handleAuth = useCallback(async ({ username, password }) => {
 
+        console.log({ username, password })
         try {
             setLoading(true);
 
@@ -77,8 +88,8 @@ export const AuthProvider: React.FC = ({ children }) => {
 
             api.defaults.headers.Authorization = `Bearer ${response.data.access_token}`;
             await AsyncStorage.setItem(AUTH_STRING_TOKEN, response.data.access_token);
-            await AsyncStorage.setItem(AUTH_STRING_USER, JSON.stringify({ username }));
-            setUser({ name: username })
+            await AsyncStorage.setItem(AUTH_STRING_USER, JSON.stringify({username}));
+            setUser({name: username})
         }
         catch (e: any) {
             Alert.alert("Ops!", e.message);
@@ -89,12 +100,20 @@ export const AuthProvider: React.FC = ({ children }) => {
     }, []);
 
     //
-    const handleSingIn = useCallback(async ({ name, lastName, cellNumber, email, password }) => {
+    const handleSignIn = useCallback(async ({ name, lastName, cellNumber, email, password }) => {
         try {
             setLoading(true);
+            console.log({
+                name, lastName, cellNumber, email, password, 
+                deviceToken:"meuIphone",
+                passWordConfirmation: password
 
+            })
             const response = await api.post('users', {
-                name, lastName, cellNumber, email, password
+                name, lastName, cellNumber, email, password, 
+                deviceToken:"meuIphone",
+                passWordConfirmation: password
+
             }).catch(err => {
                 if (err.data != undefined) {
                     throw new Error(err.data.message)
@@ -114,10 +133,24 @@ export const AuthProvider: React.FC = ({ children }) => {
     }, []);
 
     //Função responsavel por deslogar o usuário da aplicação
-    const handleSingOut = useCallback(() => {
-        api.defaults.headers.Authorization = null;
-        AsyncStorage.clear();
-        setUser(null);
+    const handleSignOut = useCallback(async () => {
+
+        try {
+            console.log("saindo...");
+            setLoading(true);
+            await setTimeout(() => {
+                console.log("....");
+                api.defaults.headers.Authorization = null;
+                AsyncStorage.clear();
+                console.log("....");
+                
+
+            }, 1000);
+        } finally {
+            setUser(null);
+            setLoading(false);
+            console.log("saiu");
+        }
     }, []);
 
     return (
@@ -127,7 +160,8 @@ export const AuthProvider: React.FC = ({ children }) => {
                 loading,
                 user,
                 handleAuth,
-                handleSingOut
+                handleSignOut,
+                handleSignIn
             }}>
             {children}
         </AuthContext.Provider>
@@ -141,6 +175,6 @@ export function useAuth() {
     if (!context)
         throw new Error('useAuth must be used within an AuthProvider');
 
-    const { loading, authorized, user, handleAuth, handleSingOut } = context;
-    return { loading, authorized, user, handleAuth, handleSingOut };
+    const { loading, authorized, user, handleAuth, handleSignOut, handleSignIn } = context;
+    return { loading, authorized, user, handleAuth, handleSignOut, handleSignIn };
 }

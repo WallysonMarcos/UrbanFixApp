@@ -2,10 +2,10 @@
 import { TextInputMask, TextInputMaskProps } from 'react-native-masked-text';
 
 import { useField } from '@unform/core';
-//import Icon from 'react-native-vector-icons/Feather';
+import Icon from 'react-native-vector-icons/Feather';
 
 import Constants from '../../Constants'
-
+69
 import { InputContainer, IconContainer, InputContent, TextContent } from './styles';
 
 
@@ -13,7 +13,6 @@ interface Props {
     name: string;
     label?: string;
     icon: string;
-    lError: boolean;
 };
 type InputProps = TextInputMaskProps & Props;
 
@@ -90,7 +89,7 @@ const InputMask: React.FC<InputProps> = ({ name, icon, onChangeText, ...rest }) 
     return (
         <InputContainer lError={errored} lFocused={focused} lBlured={blured} >
             <IconContainer>
-                {/* <Icon name={icon} size={20} color={Constants.colorSecundary} /> */}
+                <Icon name={icon} size={20} color={Constants.colorSecundary} />
             </IconContainer>
             <TextInputMask
                 style={{ width: '100%' }}

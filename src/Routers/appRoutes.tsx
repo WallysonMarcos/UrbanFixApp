@@ -8,6 +8,7 @@ const AppStack = createNativeStackNavigator();
 const AppRoutes: React.FC = () => {
   return (
     <AppStack.Navigator
+      initialRouteName={"Home"}
       screenOptions={{
         headerShown: false 
       }}

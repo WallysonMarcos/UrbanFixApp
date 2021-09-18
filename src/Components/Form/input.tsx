@@ -7,6 +7,7 @@ import Icon from 'react-native-vector-icons/MaterialIcons';
 import Constants from '../../Constants'
 
 import { InputContainer, IconContainer, InputContent, TextContent } from './styles';
+import { baseProps } from 'react-native-gesture-handler/lib/typescript/handlers/gestureHandlers';
 
 
 
@@ -72,8 +73,8 @@ const Input: React.FC<InputProps> = ({ name, icon, onChangeText, ...rest }) => {
 
     return (
         <InputContainer lError={errored} lFocused={focused} lBlured={blured} >
-            <IconContainer>
-                <Icon name={icon} size={20} color={Constants.colorSecundary} /> 
+            <IconContainer >
+                <Icon name={icon} size={20} color={Constants.colorSecundary} style={{display: icon == "none" ? "none" : "flex"}}/> 
             </IconContainer>
             <InputContent
                 onFocus={handleInputFocus}
@@ -83,7 +84,7 @@ const Input: React.FC<InputProps> = ({ name, icon, onChangeText, ...rest }) => {
                 ref={inputRef}
                 {...rest}
             />
-            {errored && <TextContent>{error}</TextContent>}
+            {/* {errored && <TextContent>{error}</TextContent>} */}
         </InputContainer>
 
     );
