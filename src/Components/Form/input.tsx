@@ -74,7 +74,7 @@ const Input: React.FC<InputProps> = ({ name, icon, onChangeText, ...rest }) => {
     return (
         <InputContainer lError={errored} lFocused={focused} lBlured={blured} >
             <IconContainer >
-                <Icon name={icon} size={20} color={Constants.colorSecundary} style={{display: icon == "none" ? "none" : "flex"}}/> 
+                <Icon name={icon} size={20} color={Constants.colorGray} style={{display: icon == "none" ? "none" : "flex"}}/> 
             </IconContainer>
             <InputContent
                 onFocus={handleInputFocus}

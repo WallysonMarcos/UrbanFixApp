@@ -3,49 +3,34 @@ import { SubmitHandler, FormHandles } from '@unform/core';
 import { Form } from '@unform/mobile';
 import * as Yup from 'yup';
 import Icon from 'react-native-vector-icons/MaterialIcons';
+import { useNavigation } from '@react-navigation/native';
 
-import { Container, Title, Content, ButtonSubmit, TextButton, RegisterText } from './styles';
+import { Container, Title, Content, ButtonSubmit, TextButton, RegisterText } from '../styles';
 
 import { Input, InputMask } from '../../../Components/Form';
 
 import { ActivityIndicator, Alert, View } from 'react-native';
 import Constants from '../../../Constants';
 import { useAuth } from '../../../Context/Auth';
+
+import { SignInData, ValidationErrorData, SignInScreenProp} from '../../../Types';
+
 import { TouchableOpacity } from 'react-native-gesture-handler';
-
-import { useNavigation } from '@react-navigation/native';
-import { NativeStackNavigationProp} from '@react-navigation/native-stack';
-import { RootStackParamList } from '../../../Routers/rootStackParam';
-
-type SignInScreenProp = NativeStackNavigationProp<RootStackParamList, 'SignIn'>;
-
-interface SignUpFormData {
-  name: string;
-  lastName: string;
-  email:string;
-  cellNumber: string;
-  password: string;
-}
-
-
-interface ValidationErrorData {
-  [key: string]: any
-}
 
 
 const SignUp: React.FC = () => {
 
   const formRef = useRef<FormHandles>(null);
-  const { user, handleSignIn, loading } = useAuth();
+  const { user, handleSignUp, loading } = useAuth();
   const navigation = useNavigation<SignInScreenProp>();
 
-  const handleSubmit: SubmitHandler<SignUpFormData> = async (data) => {
+  const handleSubmit: SubmitHandler<SignInData> = async (data) => {
 
     try {
       formRef.current?.setErrors({});
       const schema = Yup.object().shape({
-        name: Yup.string().required('Telefone é obrigatório'),
-        email: Yup.string().required('Senha é obrigatória'),
+        name: Yup.string().required('Nome é obrigatório'),
+        //email: Yup.string().required('Email é obrigatório').email() 
       });
 
       await schema.validate(data, {
@@ -53,8 +38,11 @@ const SignUp: React.FC = () => {
       });
 
       const { name, lastName, email, cellNumber, password } = data;
-      console.log(data)
-      handleSignIn({ name, lastName, email, cellNumber, password });
+
+      handleSignUp({ name, lastName, email, cellNumber, password }).then(() => {
+        //navigation.push('Confirm');
+      });
+      
 
     } catch (err) {
       var msg = "";
@@ -72,8 +60,7 @@ const SignUp: React.FC = () => {
     }
     return false;
   };
-
-
+ 
   return (
     <Container>
       <Content>
@@ -87,8 +74,8 @@ const SignUp: React.FC = () => {
 
 
 
-          <Input icon="email" placeholder="E-mail" name="email" keyboardType={'url' } />
-          <InputMask type={'cel-phone'}  icon="smartphone" placeholder="Telefone" name="cellNumber" keyboardType={'number-pad'} />
+          <Input icon="email" autoCapitalize={'none'} placeholder="E-mail" name="email" keyboardType={'url' } />
+          <Input icon="smartphone" placeholder="Telefone" name="cellNumber" keyboardType={'number-pad'} maxLength={15}/>
           <Input icon="lock" placeholder="Senha" name="password" keyboardType={'number-pad'} secureTextEntry />
           
           <ButtonSubmit onPress={() => formRef?.current?.submitForm()} >

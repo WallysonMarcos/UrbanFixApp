@@ -1,5 +1,5 @@
 import styled from 'styled-components/native';
-import Constants from '../../../Constants';
+import Constants from './../../Constants';
 
 export const Container = styled.View`
   flex: 1;
@@ -41,12 +41,20 @@ export const RegisterText = styled.Text`
 `;
 
 
+export const InfoText = styled.Text`
+  font-size: ${Constants.fontMedium}px;
+  color:  ${Constants.colorPrimary};
+  margin: 5px 0px;
+  font-weight: 500;
+`;
+
+
 
 
 export const ButtonSubmit = styled.TouchableOpacity`
   flex-direction: row;
   background: ${Constants.colorPrimary};
-  margin: 20px 0px;
+  margin: 10px 0px 10px 0px;
   padding: 12px;
   border-radius: 5px;
   font-weight: 500;

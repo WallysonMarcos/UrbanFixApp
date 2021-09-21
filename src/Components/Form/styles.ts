@@ -3,20 +3,21 @@ import Constants from '../../Constants';
 
 
 interface PropsInput {
-    lBlured: boolean; 
+    lBlured: boolean;
     lFocused: boolean;
     lError: boolean;
 };
 
-export const InputContainer= styled.View<PropsInput>`
-    height: 45px;
+export const InputContainer = styled.View<PropsInput>`
+    height: 45px; 
+    box-shadow: -0.4px 0px 0px   rgba(0,0,0,0.1);
     width: 100%;
     flex-direction: row;;
     align-items: center; 
     padding: 0px 10px;  
     border: 0.5px;
     margin-top: 5px;
-    border-radius: 3px;
+    border-radius: 5px;
     background-color: white;
     border-color: ${Constants.colorLigth};
 
@@ -38,9 +39,6 @@ export const InputContainer= styled.View<PropsInput>`
 
 export const IconContainer = styled.View`
     width: 30px;
-    ${({ noIcon }) => noIcon && css`
-        display: none;
-    `};
     justify-content: center;
 `;
 

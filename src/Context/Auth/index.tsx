@@ -4,32 +4,7 @@ import { Alert } from 'react-native';
 
 import api from '../../Services/api';
 
-interface AuthCredentials {
-    username: string;
-    password: string;
-}
-
-interface SignInData {
-    name: string;
-    lastName: string;
-    cellNumber: string;
-    email: string;
-    password: string;
-}
-
-
-interface UserContext {
-    name: string;
-}
-
-interface AuthContextData {
-    authorized: boolean;
-    loading: boolean;
-    user: UserContext | null;
-    handleAuth(credentials: AuthCredentials): Promise<void>,
-    handleSignOut(): Promise<void>;
-    handleSignIn(data: SignInData): Promise<void>,
-}
+import { AuthContextData, UserContext} from '../../Types';
 
 
 //Cria o contexto a ser utilizado no fluxo de autentição
@@ -69,9 +44,7 @@ export const AuthProvider: React.FC = ({ children }) => {
     }, [])
 
     //Função responsavel por autentição do usuário
-    const handleAuth = useCallback(async ({ username, password }) => {
-
-        console.log({ username, password })
+    const handleSignIn = useCallback(async ({ username, password }) => {
         try {
             setLoading(true);
 
@@ -100,21 +73,15 @@ export const AuthProvider: React.FC = ({ children }) => {
     }, []);
 
     //
-    const handleSignIn = useCallback(async ({ name, lastName, cellNumber, email, password }) => {
+    const handleSignUp = useCallback(async ({ name, lastName, cellNumber, email, password }) => {
         try {
             setLoading(true);
-            console.log({
-                name, lastName, cellNumber, email, password, 
-                deviceToken:"meuIphone",
-                passWordConfirmation: password
-
-            })
             const response = await api.post('users', {
                 name, lastName, cellNumber, email, password, 
                 deviceToken:"meuIphone",
                 passWordConfirmation: password
 
-            }).catch(err => {
+            }).catch(err => {                
                 if (err.data != undefined) {
                     throw new Error(err.data.message)
                 } else {
@@ -123,6 +90,25 @@ export const AuthProvider: React.FC = ({ children }) => {
             });
 
             Alert.alert("Sucesso", "Registro efeturado com sucesso!");
+
+        } catch (e: any) {
+            Alert.alert("Ops!", e.message);
+        }
+        finally {
+            setLoading(false);
+        }
+    }, []);
+
+    const handleConfirm = useCallback(async ({ cellNumber, token }) => {
+        try {
+            setLoading(true);
+            const response = await api.post('auth/confirmcell', { cellNumber, token  }).catch(err => {
+                if (err.data != undefined) {
+                    throw new Error(err.data.message)
+                } else {
+                    throw new Error(err.message)
+                }
+            });
 
         } catch (e: any) {
             Alert.alert("Ops!", e.message);
@@ -159,9 +145,10 @@ export const AuthProvider: React.FC = ({ children }) => {
                 authorized: !!user,
                 loading,
                 user,
-                handleAuth,
+                handleSignIn,
                 handleSignOut,
-                handleSignIn
+                handleSignUp,
+                handleConfirm
             }}>
             {children}
         </AuthContext.Provider>
@@ -175,6 +162,6 @@ export function useAuth() {
     if (!context)
         throw new Error('useAuth must be used within an AuthProvider');
 
-    const { loading, authorized, user, handleAuth, handleSignOut, handleSignIn } = context;
-    return { loading, authorized, user, handleAuth, handleSignOut, handleSignIn };
+    const { loading, authorized, user, handleSignIn, handleSignOut, handleSignUp, handleConfirm } = context;
+    return { loading, authorized, user, handleSignIn, handleSignOut, handleSignUp, handleConfirm};
 }

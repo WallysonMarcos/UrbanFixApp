@@ -13,6 +13,7 @@ interface Props {
     name: string;
     label?: string;
     icon: string;
+    mask?: string;
 };
 type InputProps = TextInputMaskProps & Props;
 
@@ -23,7 +24,7 @@ type InputRef = TextInputMask & PropsInput;
 
 
 
-const InputMask: React.FC<InputProps> = ({ name, icon, onChangeText, ...rest }) => {
+const InputMask: React.FC<InputProps> = ({ name, icon, mask, onChangeText, ...rest }) => {
 
     const inputRef = useRef<InputRef>(null);
     const { fieldName, registerField, defaultValue, error } = useField(name);
@@ -84,12 +85,13 @@ const InputMask: React.FC<InputProps> = ({ name, icon, onChangeText, ...rest }) 
         setErrored(false);
         setValue(maskedValue);
         setRawValue(unmaskedValue);
+        if (inputRef.current) inputRef.current.value = unmaskedValue;
     }, []);
 
     return (
         <InputContainer lError={errored} lFocused={focused} lBlured={blured} >
             <IconContainer>
-                <Icon name={icon} size={20} color={Constants.colorSecundary} />
+                <Icon name={icon} size={20} color={Constants.colorGray} />
             </IconContainer>
             <TextInputMask
                 style={{ width: '100%' }}
@@ -97,6 +99,7 @@ const InputMask: React.FC<InputProps> = ({ name, icon, onChangeText, ...rest }) 
                 onBlur={handleInputBlur}
                 defaultValue={defaultValue}
                 value={value}
+            
                 onChangeText={handleOnChangeText}
                 ref={inputRef}
                 includeRawValueInChangeText

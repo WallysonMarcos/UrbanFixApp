@@ -7,12 +7,12 @@ import { Form } from '@unform/mobile';
 import * as Yup from 'yup';
 
 import Icon from 'react-native-vector-icons/MaterialIcons';
-import { useNavigation } from '@react-navigation/native'; 
-import { NativeStackNavigationProp} from '@react-navigation/native-stack';
+import { useNavigation } from '@react-navigation/native';
+import { NativeStackNavigationProp } from '@react-navigation/native-stack';
 import { RootStackParamList } from '../../../Routers/rootStackParam';
 
 
-import { Container, Title, Content, ButtonSubmit, TextButton, RegisterText } from './styles';
+import { Container, Title, Content, ButtonSubmit, TextButton, RegisterText } from '../styles';
 
 import { Input, InputMask } from '../../../Components/Form';
 import { useAuth } from '../../../Context/Auth';
@@ -37,7 +37,7 @@ interface ValidationErrorData {
 const SignIn: React.FC = () => {
 
   const formRef = useRef<FormHandles>(null);
-  const { handleAuth, loading } = useAuth();
+  const { handleSignIn, loading } = useAuth();
   const navigation = useNavigation<SignUpScreenProp>();
 
   const handleSubmit: SubmitHandler<SignInFormData> = async (data) => {
@@ -57,7 +57,7 @@ const SignIn: React.FC = () => {
 
       const { username, password } = data;
 
-      handleAuth({ username, password });
+      handleSignIn({ username, password });
 
     } catch (err) {
       var msg = "";
@@ -79,11 +79,11 @@ const SignIn: React.FC = () => {
   return (
     <Container>
       <Content>
-        {/* <LogoBottom source={logo}  resizeMode={'stretch'}/>  65 9 9605-5008*/}
+        {/* <LogoBottom source={logo}  resizeMode={'stretch'}/> */}
         <Title>UrbanFix App</Title>
 
         <Form ref={formRef} onSubmit={handleSubmit}>
-          <Input icon="smartphone" placeholder="telefone" name="username" keyboardType={'number-pad'} />
+          <InputMask type={'cel-phone'} icon="smartphone" placeholder="telefone" name="username" keyboardType={'number-pad'} />
           <Input icon="lock" placeholder="senha" name="password" keyboardType={'number-pad'} secureTextEntry />
 
           <ButtonSubmit onPress={() => formRef?.current?.submitForm()} >
@@ -92,13 +92,13 @@ const SignIn: React.FC = () => {
           </ButtonSubmit>
         </Form>
 
-        <TouchableOpacity onPress={() =>  navigation.navigate('SignUp') } >
+        <TouchableOpacity onPress={() => navigation.navigate('SignUp')} >
           <RegisterText>Registar-se</RegisterText>
         </TouchableOpacity>
       </Content>
 
       <ActivityIndicator animating={loading} size="large" color={Constants.colorPrimary} />
- 
+
     </Container>
   );
 };
