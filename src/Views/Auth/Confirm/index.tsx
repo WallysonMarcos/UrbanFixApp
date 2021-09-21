@@ -20,14 +20,7 @@ import { TouchableOpacity } from "react-native-gesture-handler";
 
 type Props = NativeStackScreenProps<RootStackParamList, 'Confirm'>;
 
-function mTel( tel: string) {
-    tel=tel.replace(/\D/g,"") 
-    tel=tel.replace(/(.{0})(\d)/,"$1($2")
-    tel=tel.replace(/(.{3})(\d)/,"$1) $2")  
-    tel=tel.replace(/(.{4})$/,"-$1")
 
-    return tel;
-}
 
 const Confirm = ({ route, navigation }: Props) => {
 
@@ -36,8 +29,8 @@ const Confirm = ({ route, navigation }: Props) => {
     const { handleConfirm, loading,successed }  = useAuth();
 
     useEffect(() => {
-        let _cellNumber = mTel(route.params.cellNumber); 
-                        setFormatedNumber(_cellNumber);
+        let _cellNumber = formatTel(route.params.cellNumber);
+        setFormatedNumber(_cellNumber);
     },[])
 
     const handleSubmit: SubmitHandler<ConfirmData> = async (data) => {
@@ -55,7 +48,7 @@ const Confirm = ({ route, navigation }: Props) => {
             const { cellNumber =  route.params.cellNumber , token } = data;
             
             await handleConfirm({ cellNumber, token });
-            
+
             if (successed){
                 navigation.navigate('SignIn');
             }
@@ -122,6 +115,15 @@ const localStyles = StyleSheet.create({
     }
 });
 
+
+function formatTel( tel: string) {
+    tel=tel.replace(/\D/g,"") 
+    tel=tel.replace(/(.{0})(\d)/,"$1($2")
+    tel=tel.replace(/(.{3})(\d)/,"$1) $2")  
+    tel=tel.replace(/(.{4})$/,"-$1")
+
+    return tel;
+}
 
 
 export default Confirm;
