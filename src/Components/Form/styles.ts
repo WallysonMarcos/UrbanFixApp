@@ -10,7 +10,7 @@ interface PropsInput {
 
 export const InputContainer = styled.View<PropsInput>`
     height: 45px; 
-    box-shadow: -0.4px 0px 0px   rgba(0,0,0,0.1);
+    box-shadow: -0.5px 0px 0px   rgba(0,0,0,0.1);
     width: 100%;
     flex-direction: row;;
     align-items: center; 
@@ -24,6 +24,7 @@ export const InputContainer = styled.View<PropsInput>`
     ${({ lFocused }) => lFocused && css`
         border-color: ${Constants.colorSecundary};
         color: ${Constants.colorSecundary};
+        box-shadow: -2px 2px 2px   rgba(0,0,0,0.1);
     `};
 
     ${({ lError }) => lError && css`

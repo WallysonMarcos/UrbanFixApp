@@ -1,44 +1,64 @@
-import { useNavigation } from "@react-navigation/native";
-import React, { useRef, useState } from "react";
-import { Alert, Modal, StyleSheet, Text, Pressable, View } from "react-native";
+import React, { useEffect, useRef, useState } from "react";
+import { Alert, StyleSheet, View } from "react-native"; 
+
+import { NativeStackScreenProps } from '@react-navigation/native-stack';
+import { RootStackParamList } from '../../../Routers/rootStackParam';
 
 
 import { SubmitHandler, FormHandles } from '@unform/core';
 import { Form } from '@unform/mobile';
 import * as Yup from 'yup';
 
-import { InfoText, ButtonSubmit, TextButton } from '../styles';
+import { InfoText, ButtonSubmit, TextButton, Title } from '../styles';
 import { ConfirmData, ValidationErrorData } from '../../../Types';
 
-import { Input } from '../../../Components/Form';
+
+import { InputMask } from '../../../Components/Form';
 import { useAuth } from "../../../Context/Auth";
 import { TouchableOpacity } from "react-native-gesture-handler";
 
 
+type Props = NativeStackScreenProps<RootStackParamList, 'Confirm'>;
 
+function mTel( tel: string) {
+    tel=tel.replace(/\D/g,"") 
+    tel=tel.replace(/(.{0})(\d)/,"$1($2")
+    tel=tel.replace(/(.{3})(\d)/,"$1) $2")  
+    tel=tel.replace(/(.{4})$/,"-$1")
 
+    return tel;
+}
 
-const Confirm = () => {
+const Confirm = ({ route, navigation }: Props) => {
 
     const formRef = useRef<FormHandles>(null);
-    const navigation = useNavigation();
-    const { handleConfirm, loading }  = useAuth();
+    const [formatedNumber, setFormatedNumber] = useState('');
+    const { handleConfirm, loading,successed }  = useAuth();
+
+    useEffect(() => {
+        let _cellNumber = mTel(route.params.cellNumber); 
+                        setFormatedNumber(_cellNumber);
+    },[])
 
     const handleSubmit: SubmitHandler<ConfirmData> = async (data) => {
 
         try {
             formRef.current?.setErrors({});
             const schema = Yup.object().shape({
-                token: Yup.string().required('O token é obrigatório')
+                token: Yup.string().required('O código de confirmação é obrigatório!')
             });
 
             await schema.validate(data, {
                 abortEarly: false,
             });
 
-            const { cellNumber = '699817129' , token } = data;
-            // handleConfirm({ cellNumber, token })
-            navigation.goBack();
+            const { cellNumber =  route.params.cellNumber , token } = data;
+            
+            await handleConfirm({ cellNumber, token });
+            
+            if (successed){
+                navigation.navigate('SignIn');
+            }
 
         } catch (err) {
             var msg = "";
@@ -49,7 +69,7 @@ const Confirm = () => {
                     msg += error.message + "\n";
                 });
                 formRef.current?.setErrors(validationErrors);
-                Alert.alert(msg);
+                Alert.alert("Ops!", msg);
             }
 
         }
@@ -59,10 +79,12 @@ const Confirm = () => {
     return (
         <View style={localStyles.centeredView}>
             <View style={localStyles.modalView}>
+                <Title>{formatedNumber}</Title>
+                <InfoText>Informe seu token </InfoText>
                 <Form ref={formRef} onSubmit={handleSubmit}>
-                    <InfoText>Informe seu token </InfoText>
-                    <Input icon="lock" placeholder="000-000" name="token" keyboardType={'number-pad'} maxLength={6} />
-                    <ButtonSubmit onPress={() => formRef?.current?.submitForm()} >
+                    
+                    <InputMask type={'custom'} options={{ mask:'999-999'}}  icon="lock" placeholder="000-000" name="token" keyboardType={'number-pad'} maxLength={7} />
+                    <ButtonSubmit disabled={loading}  onPress={() => formRef?.current?.submitForm()} >
                         <TextButton allowFontScaling={false}  >Confirmar</TextButton>
                     </ButtonSubmit>
                 </Form>

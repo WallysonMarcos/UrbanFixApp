@@ -29,7 +29,7 @@ export const LogoBottom = styled.Image`
 export const Title = styled.Text`
   font-size: ${Constants.fontLarger}px;
   color:  ${Constants.colorPrimary};
-  margin: 10px 0px 30px;
+  margin: 10px 0px 10px;
   font-weight: 700;
 `;
 
@@ -53,7 +53,7 @@ export const InfoText = styled.Text`
 
 export const ButtonSubmit = styled.TouchableOpacity`
   flex-direction: row;
-  background: ${Constants.colorPrimary};
+  background: ${Constants.colorPrimary}; 
   margin: 10px 0px 10px 0px;
   padding: 12px;
   border-radius: 5px;

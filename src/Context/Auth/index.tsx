@@ -17,6 +17,7 @@ const AUTH_STRING_USER = '@URBANFIX:user';
 export const AuthProvider: React.FC = ({ children }) => {
 
     const [loading, setLoading] = useState(false);
+    const [successed, setSuccessed] = useState(false);
     const [user, setUser] = useState<UserContext | null>(null);
 
 
@@ -37,9 +38,7 @@ export const AuthProvider: React.FC = ({ children }) => {
             } finally {
                 setLoading(false);
             }
-
         }
-        //
         initAuthProvider();
     }, [])
 
@@ -47,7 +46,7 @@ export const AuthProvider: React.FC = ({ children }) => {
     const handleSignIn = useCallback(async ({ username, password }) => {
         try {
             setLoading(true);
-
+            setSuccessed(false);
             const response = await api.post('auth/signin', {
                 username,
                 password
@@ -62,9 +61,11 @@ export const AuthProvider: React.FC = ({ children }) => {
             api.defaults.headers.Authorization = `Bearer ${response.data.access_token}`;
             await AsyncStorage.setItem(AUTH_STRING_TOKEN, response.data.access_token);
             await AsyncStorage.setItem(AUTH_STRING_USER, JSON.stringify({username}));
-            setUser({name: username})
+            setUser({name: username});
+            setSuccessed(true);
         }
         catch (e: any) {
+            setSuccessed(false);
             Alert.alert("Ops!", e.message);
         }
         finally {
@@ -76,6 +77,7 @@ export const AuthProvider: React.FC = ({ children }) => {
     const handleSignUp = useCallback(async ({ name, lastName, cellNumber, email, password }) => {
         try {
             setLoading(true);
+            setSuccessed(false);
             const response = await api.post('users', {
                 name, lastName, cellNumber, email, password, 
                 deviceToken:"meuIphone",
@@ -88,10 +90,11 @@ export const AuthProvider: React.FC = ({ children }) => {
                     throw new Error(err.message)
                 }
             });
-
+            setSuccessed(true);
             Alert.alert("Sucesso", "Registro efeturado com sucesso!");
 
         } catch (e: any) {
+            setSuccessed(false);
             Alert.alert("Ops!", e.message);
         }
         finally {
@@ -102,6 +105,7 @@ export const AuthProvider: React.FC = ({ children }) => {
     const handleConfirm = useCallback(async ({ cellNumber, token }) => {
         try {
             setLoading(true);
+            setSuccessed(false);
             const response = await api.post('auth/confirmcell', { cellNumber, token  }).catch(err => {
                 if (err.data != undefined) {
                     throw new Error(err.data.message)
@@ -109,9 +113,11 @@ export const AuthProvider: React.FC = ({ children }) => {
                     throw new Error(err.message)
                 }
             });
+            setSuccessed(true);
 
         } catch (e: any) {
-            Alert.alert("Ops!", e.message);
+            setSuccessed(false);
+            Alert.alert("Ops!", e.message);            
         }
         finally {
             setLoading(false);
@@ -121,21 +127,15 @@ export const AuthProvider: React.FC = ({ children }) => {
     //Função responsavel por deslogar o usuário da aplicação
     const handleSignOut = useCallback(async () => {
 
-        try {
-            console.log("saindo...");
+        try { 
             setLoading(true);
-            await setTimeout(() => {
-                console.log("....");
+            await setTimeout(() => { 
                 api.defaults.headers.Authorization = null;
                 AsyncStorage.clear();
-                console.log("....");
-                
-
             }, 1000);
         } finally {
             setUser(null);
             setLoading(false);
-            console.log("saiu");
         }
     }, []);
 
@@ -144,6 +144,7 @@ export const AuthProvider: React.FC = ({ children }) => {
             value={{
                 authorized: !!user,
                 loading,
+                successed,
                 user,
                 handleSignIn,
                 handleSignOut,
@@ -162,6 +163,6 @@ export function useAuth() {
     if (!context)
         throw new Error('useAuth must be used within an AuthProvider');
 
-    const { loading, authorized, user, handleSignIn, handleSignOut, handleSignUp, handleConfirm } = context;
-    return { loading, authorized, user, handleSignIn, handleSignOut, handleSignUp, handleConfirm};
+    const { loading, authorized, successed, user, handleSignIn, handleSignOut, handleSignUp, handleConfirm } = context;
+    return { loading, authorized, successed, user, handleSignIn, handleSignOut, handleSignUp, handleConfirm};
 }

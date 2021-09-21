@@ -80,7 +80,7 @@ const SignIn: React.FC = () => {
     <Container>
       <Content>
         {/* <LogoBottom source={logo}  resizeMode={'stretch'}/> */}
-        <Title>UrbanFix App</Title>
+        <Title style={{marginBottom: 40}}>UrbanFix App</Title>
 
         <Form ref={formRef} onSubmit={handleSubmit}>
           <InputMask type={'cel-phone'} icon="smartphone" placeholder="telefone" name="username" keyboardType={'number-pad'} />

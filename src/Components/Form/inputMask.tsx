@@ -13,7 +13,6 @@ interface Props {
     name: string;
     label?: string;
     icon: string;
-    mask?: string;
 };
 type InputProps = TextInputMaskProps & Props;
 
@@ -24,7 +23,7 @@ type InputRef = TextInputMask & PropsInput;
 
 
 
-const InputMask: React.FC<InputProps> = ({ name, icon, mask, onChangeText, ...rest }) => {
+const InputMask: React.FC<InputProps> = ({ name, icon,  onChangeText, ...rest }) => {
 
     const inputRef = useRef<InputRef>(null);
     const { fieldName, registerField, defaultValue, error } = useField(name);
@@ -44,25 +43,6 @@ const InputMask: React.FC<InputProps> = ({ name, icon, mask, onChangeText, ...re
         });
     }, [fieldName, rawValue, registerField]);
 
-
-    // useEffect(() => {
-    //     registerField({ 
-    //         name: fieldName,
-    //         path: 'value',
-    //         ref: inputRef.current,
-    //         clearValue(ref) {
-    //             ref.value = '';
-    //             ref.clear();
-    //         },
-    //         setValue(ref, value) {
-    //             ref.setNativeProps({ text: value });
-    //             inputRef.current.value = value;
-    //         },
-    //         getValue(ref) {
-    //             return rawValue || ref.value;
-    //         },
-    //     })
-    // },[fieldName,  rawValue, registerField]);
 
     useEffect(() => {
         if (error) {
@@ -99,7 +79,6 @@ const InputMask: React.FC<InputProps> = ({ name, icon, mask, onChangeText, ...re
                 onBlur={handleInputBlur}
                 defaultValue={defaultValue}
                 value={value}
-            
                 onChangeText={handleOnChangeText}
                 ref={inputRef}
                 includeRawValueInChangeText

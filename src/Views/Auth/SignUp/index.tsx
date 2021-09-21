@@ -18,11 +18,15 @@ import { SignInData, ValidationErrorData, SignInScreenProp} from '../../../Types
 import { TouchableOpacity } from 'react-native-gesture-handler';
 
 
-const SignUp: React.FC = () => {
+import { NativeStackScreenProps } from '@react-navigation/native-stack';
+import { RootStackParamList } from '../../../Routers/rootStackParam';
+
+type Props = NativeStackScreenProps<RootStackParamList, 'SignUp'>;
+
+const SignUp  = ({ navigation }: Props) => {
 
   const formRef = useRef<FormHandles>(null);
-  const { user, handleSignUp, loading } = useAuth();
-  const navigation = useNavigation<SignInScreenProp>();
+  const { user, handleSignUp, loading, successed } = useAuth(); 
 
   const handleSubmit: SubmitHandler<SignInData> = async (data) => {
 
@@ -39,11 +43,13 @@ const SignUp: React.FC = () => {
 
       const { name, lastName, email, cellNumber, password } = data;
 
-      handleSignUp({ name, lastName, email, cellNumber, password }).then(() => {
-        //navigation.push('Confirm');
-      });
+      await handleSignUp({ name, lastName, email, cellNumber, password })
       
-
+      if(successed){
+        navigation.goBack();
+        navigation.navigate('Confirm',{ cellNumber });        
+      }
+      
     } catch (err) {
       var msg = "";
       var validationErrors: ValidationErrorData = {};
@@ -75,7 +81,7 @@ const SignUp: React.FC = () => {
 
 
           <Input icon="email" autoCapitalize={'none'} placeholder="E-mail" name="email" keyboardType={'url' } />
-          <Input icon="smartphone" placeholder="Telefone" name="cellNumber" keyboardType={'number-pad'} maxLength={15}/>
+          <InputMask type={'cel-phone'} icon="smartphone"placeholder="Telefone" name="cellNumber" keyboardType={'number-pad'} maxLength={15}/>
           <Input icon="lock" placeholder="Senha" name="password" keyboardType={'number-pad'} secureTextEntry />
           
           <ButtonSubmit onPress={() => formRef?.current?.submitForm()} >

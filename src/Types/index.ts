@@ -24,9 +24,14 @@ export  interface UserContext {
     name: string;
 }
 
+export  interface ConfirmNumber {
+    cellNumber: string;
+}
+
 export interface AuthContextData {
     authorized: boolean;
     loading: boolean;
+    successed: boolean;
     user: UserContext | null;
     handleSignIn(credentials: AuthCredentials): Promise<void>,
     handleSignOut(): Promise<void>;

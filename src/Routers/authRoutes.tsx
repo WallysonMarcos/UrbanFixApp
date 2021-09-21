@@ -5,8 +5,9 @@ import SignIn from '../Views/Auth/SignIn';
 import SignUp from '../Views/Auth/SignUp';
 import Confirm from '../Views/Auth/Confirm';
 
+import {RootStackParamList} from './rootStackParam';
 
-const AuthStack = createNativeStackNavigator();
+const AuthStack = createNativeStackNavigator<RootStackParamList>();
 
 const AuthRoutes: React.FC = () => {
   return (
@@ -21,10 +22,9 @@ const AuthRoutes: React.FC = () => {
 
       <AuthStack.Group>
 
-        <AuthStack.Screen name={"Confirm"} component={Confirm} options={
-          { 
-            presentation: 'transparentModal',
-        }}/>
+        <AuthStack.Screen name={"Confirm"} component={Confirm}
+          initialParams={{cellNumber: ''}}
+          options={{ presentation: 'transparentModal', }}/>
       </AuthStack.Group>
     </AuthStack.Navigator>
   );
