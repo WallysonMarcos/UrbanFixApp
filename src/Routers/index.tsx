@@ -3,12 +3,13 @@ import { useAuth } from '../Context/Auth';
 
 import AuthRoutes from './authRoutes';
 import AppRoutes from './appRoutes';
+ 
 
 const Routes: React.FC = () => {
 
   const { authorized } = useAuth();
 
-  return authorized ? <AppRoutes /> : <AuthRoutes />;
+  return  authorized ? <AppRoutes /> : <AuthRoutes />;
 
 };
 

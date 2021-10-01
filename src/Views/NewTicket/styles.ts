@@ -34,7 +34,7 @@ export const Title = styled.Text`
 
 export const ButtonSubmit = styled.TouchableOpacity`
   flex-direction: row; 
-  background: ${Constants.colorError};
+  background: ${Constants.colorPrimary};
   margin: 10px 0px;
   padding: 10px;
   border-radius: 5px;  
@@ -50,7 +50,7 @@ export const ButtonRoundAdd = styled.TouchableOpacity`
   background: ${Constants.colorPrimary};
   margin: 10px 0px;
   padding: 20px;
-  border-radius: 50px;  
+  border-radius: 10px;  
   align-items: center;
   justify-content: center; 
   
@@ -61,4 +61,4 @@ export const TextButton = styled.Text`
   color:  ${Constants.colorLigth};
   margin-left: 10px;
   font-weight: 700;
-`;
+`; 

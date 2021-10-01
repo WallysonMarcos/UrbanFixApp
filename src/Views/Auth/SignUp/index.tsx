@@ -81,7 +81,7 @@ const SignUp  = ({ navigation }: Props) => {
 
 
           <Input icon="email" autoCapitalize={'none'} placeholder="E-mail" name="email" keyboardType={'url' } />
-          <InputMask type={'cel-phone'} icon="smartphone"placeholder="Telefone" name="cellNumber" keyboardType={'number-pad'} maxLength={15}/>
+          <InputMask type={'cel-phone'} icon="smartphone" placeholder="Telefone" name="cellNumber" keyboardType={'number-pad'} maxLength={15}/>
           <Input icon="lock" placeholder="Senha" name="password" keyboardType={'number-pad'} secureTextEntry />
           
           <ButtonSubmit onPress={() => formRef?.current?.submitForm()} >
