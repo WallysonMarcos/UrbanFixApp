@@ -2,7 +2,7 @@ import React, { createContext, useContext, useState, useCallback, useEffect } fr
 import AsyncStorage from '@react-native-community/async-storage';
 import { Alert } from 'react-native';
 
-import api from '../../Services/api';
+import { ilumineApi } from '../../Services/api';
 
 import { AuthContextData, UserContext} from '../../Types';
 
@@ -31,7 +31,7 @@ export const AuthProvider: React.FC = ({ children }) => {
 
                 if (user && token) {
                     setUser(JSON.parse(user));
-                    api.defaults.headers.Authorization = `Bearer ${token}`;
+                    ilumineApi.defaults.headers.Authorization = `Bearer ${token}`;
                 }
             } catch (err) {
                 setUser(null);
@@ -47,7 +47,7 @@ export const AuthProvider: React.FC = ({ children }) => {
         try {
             setLoading(true);
             setSuccessed(false);
-            const response = await api.post('auth/signin', {
+            const response = await ilumineApi.post('auth/signin', {
                 username,
                 password
             }).catch(e => {
@@ -58,7 +58,7 @@ export const AuthProvider: React.FC = ({ children }) => {
                 }
             });
 
-            api.defaults.headers.Authorization = `Bearer ${response.data.access_token}`;
+            ilumineApi.defaults.headers.Authorization = `Bearer ${response.data.access_token}`;
             await AsyncStorage.setItem(AUTH_STRING_TOKEN, response.data.access_token);
             await AsyncStorage.setItem(AUTH_STRING_USER, JSON.stringify({username}));
             setUser({name: username});
@@ -78,7 +78,7 @@ export const AuthProvider: React.FC = ({ children }) => {
         try {
             setLoading(true);
             setSuccessed(false);
-            const response = await api.post('users', {
+            const response = await ilumineApi.post('users', {
                 name, lastName, cellNumber, email, password, 
                 deviceToken:"meuIphone",
                 passWordConfirmation: password
@@ -106,7 +106,7 @@ export const AuthProvider: React.FC = ({ children }) => {
         try {
             setLoading(true);
             setSuccessed(false);
-            const response = await api.post('auth/confirmcell', { cellNumber, token  }).catch(err => {
+            const response = await ilumineApi.post('auth/confirmcell', { cellNumber, token  }).catch(err => {
                 if (err.data != undefined) {
                     throw new Error(err.data.message)
                 } else {
@@ -130,7 +130,7 @@ export const AuthProvider: React.FC = ({ children }) => {
         try { 
             setLoading(true);
             await setTimeout(() => { 
-                api.defaults.headers.Authorization = null;
+                ilumineApi.defaults.headers.Authorization = null;
                 AsyncStorage.clear();
             }, 1000);
         } finally {

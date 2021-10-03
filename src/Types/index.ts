@@ -48,3 +48,64 @@ export interface ConfirmData {
     cellNumber: string;
     token: string; 
 }
+
+export interface TicketData {
+    idProblem: number;
+    cep: string;
+    publicPlace: string;
+    complements: string;
+    number: number;
+    suburb: string;
+    note: string;
+    latitude: string;
+    longitude: string;
+}
+
+
+export interface LatLng {
+    latitude: number;
+    longitude: number;
+}
+
+export interface ProblemsData {
+    id: number;
+    description: string;
+    icon: string;
+}
+
+export interface PlaceFromData {
+    cep: string;
+    publicPlace: string;
+    complements: string;
+    number: number;
+    suburb: string;
+    note: string;
+}
+
+export interface TicketContextData {
+    loading: boolean;
+    successed: boolean;
+    ticket: TicketData ;
+    selected: number;
+    coordinate: LatLng;
+    problems: Array<ProblemsData>;
+    consultCep: ConsultCep  | null;
+    handleNewTicket(): Promise<void>,
+    handleCep(cep: string): Promise<void>;
+    handleSetIdProblem(id: number): void;
+    handleSetCoordinate( coordinate: LatLng ): void;
+    handlePlaceConfirm( data: PlaceFromData): void;
+}
+
+export interface ConsultCep { 
+    cep: string;
+    logradouro: string;
+    complemento: string;
+    bairro: string;
+    localidade: string;
+    uf: string;
+    ibge: string;
+    gia: string;
+    ddd: string;
+    siafi: string;
+}

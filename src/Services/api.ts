@@ -1,8 +1,19 @@
 import axios from 'axios';
 import { API_URL } from '@env';
  
-const api = axios.create({ 
-    baseURL: API_URL
-}) 
+export const ilumineApi = axios.create({ 
+    baseURL: API_URL,
+    withCredentials: false,
+    headers: {
+      'Content-Type': 'application/json',
+      'Access-Control-Allow-Origin': '*',
+      'Accept' : 'application/json, text/plain, */*',
+      'Access-Control-Allow-Methods' : 'GET, PUT, POST, DELETE, OPTIONS',
+      'Access-Control-Allow-Credentials' : true
+    },
 
-export default api;
+});
+
+export const viaCepApi = axios.create({
+    baseURL: 'https://viacep.com.br/ws/'
+});

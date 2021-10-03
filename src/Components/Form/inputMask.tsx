@@ -2,7 +2,7 @@
 import { TextInputMask, TextInputMaskProps } from 'react-native-masked-text';
 
 import { useField } from '@unform/core';
-import Icon from 'react-native-vector-icons/Feather';
+import Icon from 'react-native-vector-icons/MaterialIcons';
 
 import Constants from '../../Constants'
 69
@@ -19,11 +19,12 @@ type InputProps = TextInputMaskProps & Props;
 interface PropsInput {
     value: string;
 };
+
 type InputRef = TextInputMask & PropsInput;
 
 
 
-const InputMask: React.FC<InputProps> = ({ name, icon,  onChangeText, ...rest }) => {
+const InputMask: React.FC<InputProps> = ({ name, icon, onChangeText, ...rest }) => {
 
     const inputRef = useRef<InputRef>(null);
     const { fieldName, registerField, defaultValue, error } = useField(name);
@@ -33,13 +34,26 @@ const InputMask: React.FC<InputProps> = ({ name, icon,  onChangeText, ...rest })
     const [errored, setErrored] = useState(false);
     const [value, setValue] = useState('');
     const [rawValue, setRawValue] = useState('');
+ 
 
+    useEffect(() => {
+        if (inputRef.current) 
+            inputRef.current.value = defaultValue;
+    }, [defaultValue]);
 
     useEffect(() => {
         registerField({
             name: fieldName,
+            path: 'value',
             ref: inputRef.current,
-            path: 'value'
+            clearValue(ref: any) {
+                ref.value = '';
+                ref.clear();
+            },
+            setValue(ref : any, value) {
+                ref.setNativeProps({ text: value });
+                ref.value = value;
+            }, 
         });
     }, [fieldName, rawValue, registerField]);
 
@@ -84,7 +98,7 @@ const InputMask: React.FC<InputProps> = ({ name, icon,  onChangeText, ...rest })
                 includeRawValueInChangeText
                 {...rest}
             />
-            {errored && <TextContent>{error}</TextContent>}
+            {/* {errored && <TextContent>{error}</TextContent>} */}
         </InputContainer>
 
     );

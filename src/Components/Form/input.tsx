@@ -44,7 +44,15 @@ const Input: React.FC<InputProps> = ({ name, icon, onChangeText, ...rest }) => {
         registerField({
             name: fieldName,
             path: 'value',
-            ref: inputRef.current
+            ref: inputRef.current,
+            clearValue(ref: any) {
+                ref.value = '';
+                ref.clear();
+            },
+            setValue(ref : any, value) {
+                ref.setNativeProps({ text: value });
+                ref.value = value;
+            }, 
         })
     }, [fieldName, registerField]);
 
@@ -65,10 +73,12 @@ const Input: React.FC<InputProps> = ({ name, icon, onChangeText, ...rest }) => {
         setBlured((inputRef.current?.value !== '') ? true : false);
     }, []);
 
-    const handleOnChangeText = useCallback((value) => {
+    const handleOnChangeText = useCallback((value) => { 
         setErrored(false);
-        if (inputRef.current) inputRef.current.value = value;
-        if (onChangeText) onChangeText(value);
+        if (inputRef.current) 
+            inputRef.current.value = value;
+        if (onChangeText) 
+            onChangeText(value);
     }, []);
 
     return (

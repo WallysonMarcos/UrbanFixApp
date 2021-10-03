@@ -3,6 +3,7 @@ import { View, StatusBar } from 'react-native';
 import { NavigationContainer } from '@react-navigation/native'; 
 
 import { AuthProvider } from './Context/Auth';
+import { TicketProvider } from './Context/Ticket';
 
 import Routes from './Routers';
 
@@ -11,7 +12,9 @@ const App: React.FC = () => (
     <StatusBar barStyle="dark-content" />
     <View style={{ flex: 1, backgroundColor: '#fff' }}>
       <AuthProvider>
-        <Routes />
+        <TicketProvider>
+          <Routes />
+        </TicketProvider>
       </AuthProvider>
     </View>
   </NavigationContainer>
