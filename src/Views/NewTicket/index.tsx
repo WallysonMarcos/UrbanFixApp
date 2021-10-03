@@ -13,6 +13,7 @@ import { RootStackParamList } from '../../Routers/rootStackParam';
 
 import { useTicket } from '../../Context/Ticket';
 import { TouchableOpacity } from 'react-native-gesture-handler';
+import Constants from '../../Constants';
 
 type Props = NativeStackScreenProps<RootStackParamList, 'NewTicket'>;
 
@@ -54,7 +55,7 @@ const NewTicket = ({ navigation }: Props) => {
             <MapView style={{ flex: 1, width: '100%', height: '100%' }}
                 showsUserLocation={true}
                 showsMyLocationButton={false}
-                // provider={PROVIDER_GOOGLE}
+                // provider={PROVIDER_GOOGLE} 
                 showsBuildings={false}
                 toolbarEnabled={false}
                 maxZoomLevel={50} 
@@ -74,7 +75,7 @@ const NewTicket = ({ navigation }: Props) => {
 
 
             <ButtonRoundAdd onPress={handlePreValid} >
-                <Icon name="add" size={20} color='white' />
+                <Icon name="east" size={20} color='white' />
             </ButtonRoundAdd>
 
         </Container>

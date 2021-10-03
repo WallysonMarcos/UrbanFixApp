@@ -80,7 +80,7 @@ const PlaceConfirm = ({ navigation }: Props) => {
             <Content>
                 <Form ref={formRef} onSubmit={handleSubmit}>
                     <InputMask type={'custom'} options={{ mask: '99999-999' }}
-                        icon="map" placeholder="CEP" name="cep"
+                        icon="edit-location" placeholder="CEP" name="cep"
                         keyboardType={'number-pad'} maxLength={10} />
                     <ButtonSubmit onPress={() => handleConsultCep()}>
                         <TextButton>{"Consultar"}</TextButton>
@@ -94,7 +94,7 @@ const PlaceConfirm = ({ navigation }: Props) => {
 
             </Content>
             <ButtonRoundAdd onPress={() => formRef.current?.submitForm()} >
-                <Icon name="add" size={20} color='white' />
+                <Icon name="done" size={20} color='white' />
             </ButtonRoundAdd>
             <ActivityIndicator animating={loading} size={"large"} color={Constants.colorPrimary} />
         </Container>

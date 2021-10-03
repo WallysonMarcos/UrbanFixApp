@@ -82,19 +82,45 @@ export interface PlaceFromData {
     note: string;
 }
 
+export  interface IGenericTypeOfTicket {
+    id: number;
+    description: string;
+    color: string | null;
+}
+ 
+
+export interface IListTickets {
+    id: number; 
+    dtOpen: string;
+    dtClose: string | null;
+    cep: string;
+    publicPlace: string;
+    complements: string;
+    number: number;
+    suburb: string;
+    note: string;
+    latitude: string;
+    longitude: string;
+    type: IGenericTypeOfTicket;
+    status: Array<IGenericTypeOfTicket>;
+
+}
+
 export interface TicketContextData {
     loading: boolean;
     successed: boolean;
     ticket: TicketData ;
+    tickets: Array<IListTickets> | null;
     selected: number;
-    coordinate: LatLng;
     problems: Array<ProblemsData>;
+    coordinate: LatLng;    
     consultCep: ConsultCep  | null;
     handleNewTicket(): Promise<void>,
     handleCep(cep: string): Promise<void>;
     handleSetIdProblem(id: number): void;
     handleSetCoordinate( coordinate: LatLng ): void;
     handlePlaceConfirm( data: PlaceFromData): void;
+    handleListMyTickets():  Promise<void>;
 }
 
 export interface ConsultCep { 

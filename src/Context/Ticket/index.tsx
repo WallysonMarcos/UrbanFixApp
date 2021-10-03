@@ -2,7 +2,7 @@ import React, { createContext, useCallback, useContext, useEffect, useState } fr
 import { Alert } from "react-native";
 
 import { ilumineApi, viaCepApi } from "../../Services/api";
-import { ConsultCep, TicketContextData, TicketData, LatLng, PlaceFromData } from "../../Types";
+import { ConsultCep, TicketContextData, TicketData, LatLng, PlaceFromData, IListTickets } from "../../Types";
 
 const InitialContext = {
     idProblem: 0,
@@ -23,7 +23,8 @@ export const TicketProvider: React.FC = ({ children }) => {
 
     const [loading, setLoading] = useState(false);
     const [successed, setSuccessed] = useState(false);
-    const [selected, setSelected] = useState(0)
+    const [selected, setSelected] = useState(0);
+    const [tickets, setTickets] = useState< Array<IListTickets> | null >(null);
     const [ticket, setTicket] = useState<TicketData>(InitialContext);
     const [consultCep, setConsultCep] = useState<ConsultCep | null>(null);
     const [coordinate, setCoordinate] = useState<LatLng>({ latitude: -12.740919, longitude: -60.132189 })
@@ -32,22 +33,22 @@ export const TicketProvider: React.FC = ({ children }) => {
         {
             id: 1,
             description: "LÂMPADA QUEIMADA",
-            icon: "loader"
+            icon: "highlight-off"
         },
         {
             id: 2,
             description: "LÂMPADA ACESA",
-            icon: "map"
+            icon: "lightbulb"
         },
         {
             id: 3,
             description: "LÂMPADA OSCILANDO",
-            icon: "alert-octagon"
+            icon: "new-releases"
         },
         {
             id: 4,
             description: "LÂMPADA DANIFICADA",
-            icon: "play-circle"
+            icon: "broken-image"
         }
     ]);
 
@@ -77,15 +78,32 @@ export const TicketProvider: React.FC = ({ children }) => {
         }));
     }, []);
 
+    const handleListMyTickets = useCallback(async () => {
+        try {
+            setSuccessed(false);
+            setLoading(true);
+
+            await ilumineApi.get('ticket').then((response) => {
+                console.log(response.data.message) 
+                setTickets(response.data);
+                setSuccessed(true);
+            }).catch((e: any) => {
+                console.log(e.response.data)
+                throw new Error(e.response.data.message[0])
+            });
+
+        } catch (e: any) {
+            Alert.alert('Ops!', e.message);
+        }
+        finally {
+            setLoading(false);        }
+    }, []);
+
     const handleNewTicket = async () => {
 
-
-        setSuccessed(false);
-
         try {
-
+            setSuccessed(false);
             setLoading(true);
-            console.log(ticket)
 
             await ilumineApi.post('ticket', ticket).then((response) => {
                 console.log(response.data.message)
@@ -151,15 +169,17 @@ export const TicketProvider: React.FC = ({ children }) => {
                 loading,
                 successed,
                 ticket,
-                problems,
+                tickets,
                 selected,
                 coordinate,
                 consultCep,
+                problems,
                 handleNewTicket,
                 handleCep,
                 handleSetIdProblem,
                 handleSetCoordinate,
-                handlePlaceConfirm
+                handlePlaceConfirm,
+                handleListMyTickets
             }}>
             {children}
         </TicketContext.Provider>
@@ -177,29 +197,33 @@ export function useTicket() {
         loading,
         successed,
         ticket,
-        problems,
+        tickets, 
         selected,
         coordinate,
         consultCep,
+        problems,
         handleNewTicket,
         handleCep,
         handleSetIdProblem,
         handleSetCoordinate,
-        handlePlaceConfirm
+        handlePlaceConfirm,
+        handleListMyTickets
     } = context;
 
     return {
         loading,
         successed,
-        ticket,
-        problems,
+        ticket, 
+        tickets,
         selected,
         coordinate,
         consultCep,
+        problems,
         handleNewTicket,
         handleCep,
         handleSetIdProblem,
         handleSetCoordinate,
-        handlePlaceConfirm
+        handlePlaceConfirm,
+        handleListMyTickets
     }
 };
