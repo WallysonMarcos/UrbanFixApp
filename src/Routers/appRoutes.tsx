@@ -6,7 +6,7 @@ import NewTicket from '../Views/NewTicket';
 import PlaceConfirm from '../Views/NewTicket/PlaceConfirm';
 
 import { TouchableOpacity } from 'react-native-gesture-handler';
-import Icon from 'react-native-vector-icons/MaterialIcons';
+import Icon from 'react-native-vector-icons/Feather';
 import { useAuth } from '../Context/Auth';
 import Constants from '../Constants';
 import { Alert } from 'react-native';
@@ -23,23 +23,33 @@ const AppRoutes: React.FC = () => {
     >
       <AppStack.Screen name="Home" component={Home} options={{
           title: 'Minhas Solicitações', 
-          headerTintColor: Constants.colorGray,
+          headerTitleStyle: {color: Constants.colorGray,  fontWeight: '400'},
           headerRight: () => (
             <TouchableOpacity onPress={() => handleSignOut()}>
-              <Icon name="logout" size={25} color={Constants.colorError} />
+              <Icon name="log-out" size={20} color={Constants.colorError} />
             </TouchableOpacity>
           ),
           headerLeft: () => (
             <TouchableOpacity onPress={() => Alert.alert('Aviso','Em desenvolvimento...')}>
-              <Icon name="person" size={25} color={Constants.colorPrimary} />
+              <Icon name="user" size={20} color={Constants.colorGray} />
             </TouchableOpacity>
           ),
         
       }}/>
       <AppStack.Screen name="NewTicket" component={NewTicket}
-        options={{ headerShown: true, headerTransparent: true }} />
+        options={{ 
+          headerShown: true, 
+          headerTransparent: true, 
+          title:'Nova Solicitação', 
+          headerTitleStyle: {color: Constants.colorGray,  fontWeight: '400'}
+        }} />
       <AppStack.Screen name="PlaceConfirm" component={PlaceConfirm}
-        options={{ headerShown: true, headerTransparent: true }} />
+        options={{ 
+          headerShown: true, 
+          headerTransparent: true, 
+          title:'Nova Solicitação', 
+          headerTitleStyle: {color: Constants.colorGray,  fontWeight: '400'}
+        }} />
 
     </AppStack.Navigator>
   );

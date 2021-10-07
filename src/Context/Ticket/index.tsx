@@ -3,10 +3,12 @@ import { Alert } from "react-native";
 
 import { ilumineApi, viaCepApi } from "../../Services/api";
 import { ConsultCep, TicketContextData, TicketData, LatLng, PlaceFromData, IListTickets } from "../../Types";
+import { useAuth } from "../Auth";
 
 const InitialContext = {
     idProblem: 0,
     cep: "",
+    cepMasked: "",
     publicPlace: "",
     complements: "",
     number: 0,
@@ -21,6 +23,7 @@ const TicketContext = createContext<TicketContextData>({} as TicketContextData);
 
 export const TicketProvider: React.FC = ({ children }) => {
 
+    
     const [loading, setLoading] = useState(false);
     const [successed, setSuccessed] = useState(false);
     const [selected, setSelected] = useState(0);
@@ -28,6 +31,7 @@ export const TicketProvider: React.FC = ({ children }) => {
     const [ticket, setTicket] = useState<TicketData>(InitialContext);
     const [consultCep, setConsultCep] = useState<ConsultCep | null>(null);
     const [coordinate, setCoordinate] = useState<LatLng>({ latitude: -12.740919, longitude: -60.132189 })
+    const { handleSignOut } = useAuth();
 
     const [problems, setProblems] = useState([
         {
@@ -66,15 +70,15 @@ export const TicketProvider: React.FC = ({ children }) => {
         setSelected(id);
     }, []);
 
-    const handlePlaceConfirm = useCallback((data: PlaceFromData) => {
+    const handlePlaceConfirm = useCallback(({ cep, publicPlace, suburb, number, complements, note }) => {
         setTicket(prevState => ({
             ...prevState,
-            cep: data.cep.replace('-', ''),
-            publicPlace: data.publicPlace,
-            suburb: data.suburb,
-            number: data.number,
-            complements: data.complements,
-            note: data.note,
+            cep: cep.replace('-', ''),
+            publicPlace: publicPlace,
+            suburb: suburb,
+            number: number,
+            complements: complements,
+            note: note,
         }));
     }, []);
 
@@ -83,13 +87,17 @@ export const TicketProvider: React.FC = ({ children }) => {
             setSuccessed(false);
             setLoading(true);
 
-            await ilumineApi.get('ticket').then((response) => {
-                console.log(response.data.message) 
-                setTickets(response.data);
+            await ilumineApi.get('ticket').then((response) => { 
+                let _tickets = response.data;
+                _tickets.sort((a: any,b: any) => (a.id < b.id) ? 1 : ((b.id < a.id) ? -1 : 0))
+                setTickets(_tickets);                
                 setSuccessed(true);
             }).catch((e: any) => {
-                console.log(e.response.data)
-                throw new Error(e.response.data.message[0])
+                if (e.response.status === 401) {
+                    handleSignOut();
+                } else {
+                    throw new Error(e.response.data.message[0])
+                }
             });
 
         } catch (e: any) {
@@ -105,8 +113,10 @@ export const TicketProvider: React.FC = ({ children }) => {
             setSuccessed(false);
             setLoading(true);
 
+            console.log(ticket)
+
             await ilumineApi.post('ticket', ticket).then((response) => {
-                console.log(response.data.message)
+                Alert.alert('Sucesso!', response.data.message);
                 resetDatAfterPost();
                 setSuccessed(true);
             }).catch((e: any) => {
@@ -127,9 +137,7 @@ export const TicketProvider: React.FC = ({ children }) => {
         try {
             setLoading(true);
             setSuccessed(false);
-            setConsultCep(null);
-
-            cep = cep.replace('-', '');
+            setConsultCep(null); 
 
             await viaCepApi.get(`${cep}/json`).then((response) => {
                 let _consultaCep = response.data as ConsultCep;
@@ -137,7 +145,8 @@ export const TicketProvider: React.FC = ({ children }) => {
                 setConsultCep(response.data)
                 setTicket(prevState => ({
                     ...prevState,
-                    cep: cep,
+                    cep: cep.replace('-', ''),
+                    cepMasked: cep,
                     suburb: _consultaCep.bairro,
                     publicPlace: _consultaCep.logradouro
                 }))

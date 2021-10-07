@@ -52,6 +52,7 @@ export interface ConfirmData {
 export interface TicketData {
     idProblem: number;
     cep: string;
+    cepMasked: string;
     publicPlace: string;
     complements: string;
     number: number;

@@ -41,9 +41,7 @@ const SignIn: React.FC = () => {
   const navigation = useNavigation<SignUpScreenProp>();
 
   const handleSubmit: SubmitHandler<SignInFormData> = async (data) => {
-
-    console.log(data)
-
+ 
     try {
       formRef.current?.setErrors({});
       const schema = Yup.object().shape({

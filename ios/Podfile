@@ -14,8 +14,8 @@ target 'UrbanFixApp' do
 
   pod 'RNVectorIcons', :path => '../node_modules/react-native-vector-icons'
  
-  pod 'react-native-google-maps', :path => '../node_modules/react-native-maps'
-
+  rn_maps_path = '../node_modules/react-native-maps'
+  pod 'react-native-google-maps', :path => rn_maps_path
   pod 'RNCAsyncStorage', :path => '../node_modules/@react-native-community/async-storage'
 
   target 'UrbanFixAppTests' do
@@ -29,7 +29,7 @@ target 'UrbanFixApp' do
   #
   # Note that if you have use_frameworks! enabled, Flipper will not work and
   # you should disable the next line.
-  use_flipper!()
+  #use_flipper!()
 
   post_install do |installer|
     react_native_post_install(installer)
