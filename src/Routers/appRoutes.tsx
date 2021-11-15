@@ -3,6 +3,8 @@ import { createNativeStackNavigator } from '@react-navigation/native-stack';
 
 import Home from '../Views/Home';
 import NewTicket from '../Views/NewTicket';
+import TicketDetail from '../Views/TicketDetail';
+
 import PlaceConfirm from '../Views/NewTicket/PlaceConfirm';
 
 import { TouchableOpacity } from 'react-native-gesture-handler';
@@ -50,7 +52,13 @@ const AppRoutes: React.FC = () => {
           title:'Nova Solicitação', 
           headerTitleStyle: {color: Constants.colorGray,  fontWeight: '400'}
         }} />
-
+      <AppStack.Screen name="TicketDetail" component={TicketDetail}
+        options={{ 
+          headerShown: true, 
+          headerTransparent: true, 
+          title:'Ticket Detail', 
+          headerTitleStyle: {color: Constants.colorGray,  fontWeight: '400'}
+        }} />
     </AppStack.Navigator>
   );
 };

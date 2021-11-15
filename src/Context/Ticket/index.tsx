@@ -55,13 +55,7 @@ export const TicketProvider: React.FC = ({ children }) => {
             icon: "broken-image"
         }
     ]);
-
-    function resetDatAfterPost() {
-        setSelected(0);
-        setCoordinate({ latitude: -12.740919, longitude: -60.132189 });
-        setTicket(InitialContext);
-    }
-
+ 
     const handleSetIdProblem = useCallback((id: number) => {
         setTicket(prevState => ({
             ...prevState,
@@ -70,16 +64,27 @@ export const TicketProvider: React.FC = ({ children }) => {
         setSelected(id);
     }, []);
 
-    const handlePlaceConfirm = useCallback(({ cep, publicPlace, suburb, number, complements, note }) => {
-        setTicket(prevState => ({
-            ...prevState,
-            cep: cep.replace('-', ''),
-            publicPlace: publicPlace,
-            suburb: suburb,
-            number: number,
-            complements: complements,
-            note: note,
-        }));
+    const handlePlaceConfirm = useCallback( async ({ cep, publicPlace, suburb, number, complements, note }) => {
+
+        
+        try { 
+            setLoading(true);
+            await setTimeout(() => { 
+                setTicket(prevState => ({
+                    ...prevState,
+                    cep,
+                    publicPlace,
+                    suburb,
+                    number,
+                    complements,
+                    note,
+                }));
+            }, 1000);
+        } finally { 
+            setLoading(false);
+        }
+
+        
     }, []);
 
     const handleListMyTickets = useCallback(async () => {
@@ -113,11 +118,14 @@ export const TicketProvider: React.FC = ({ children }) => {
             setSuccessed(false);
             setLoading(true);
 
-            console.log(ticket)
+            
+            console.log("NewTciket ==> " + JSON.stringify(ticket))
 
             await ilumineApi.post('ticket', ticket).then((response) => {
                 Alert.alert('Sucesso!', response.data.message);
-                resetDatAfterPost();
+                setSelected(0);
+                setCoordinate({ latitude: -12.740919, longitude: -60.132189 });
+                setTicket(InitialContext);
                 setSuccessed(true);
             }).catch((e: any) => {
                 console.log(e.response.data)

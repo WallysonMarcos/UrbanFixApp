@@ -51,7 +51,7 @@ const PlaceConfirm = ({ navigation }: Props) => {
 
             const { cep, publicPlace, suburb, number, complements, note } = data;
             
-            handlePlaceConfirm( { cep, publicPlace, suburb, number, complements, note }  );
+            await handlePlaceConfirm( { cep, publicPlace, suburb, number, complements, note }  );
 
             await handleNewTicket();
             
@@ -81,14 +81,14 @@ const PlaceConfirm = ({ navigation }: Props) => {
             <Content>
                 <Form ref={formRef} onSubmit={handleSubmit}>
                     <InputMask type={'custom'} options={{ mask: '99999-999' }}
-                        icon="edit-location" placeholder="CEP" name="cep"
+                        icon="edit-location" placeholderTextColor={Constants.colorGray}  placeholder="CEP" name="cep"
                         keyboardType={'number-pad'} maxLength={9}
                         onChange={(e) => eventConsultCep(e.nativeEvent)} /> 
-                    <Input icon="chevron-right" placeholder="Rua" name="publicPlace" />
-                    <Input icon="chevron-right" placeholder="Bairro" name="suburb" />
-                    <Input icon="chevron-right" placeholder="Número" name="number" />
-                    <Input icon="chevron-right" placeholder="Complemento" name="complements" />
-                    <Input icon="chevron-right" placeholder="Observação" name="note" />
+                    <Input icon="chevron-right" placeholderTextColor={Constants.colorGray}  placeholder="Rua" name="publicPlace" />
+                    <Input icon="chevron-right" placeholderTextColor={Constants.colorGray}  placeholder="Bairro" name="suburb" />
+                    <Input icon="chevron-right" placeholderTextColor={Constants.colorGray}  placeholder="Número" name="number" />
+                    <Input icon="chevron-right" placeholderTextColor={Constants.colorGray}  placeholder="Complemento" name="complements" />
+                    <Input icon="chevron-right" placeholderTextColor={Constants.colorGray}  placeholder="Observação" name="note" />
                 </Form>
 
             </Content>

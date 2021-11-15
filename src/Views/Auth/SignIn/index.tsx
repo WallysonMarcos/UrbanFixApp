@@ -81,8 +81,8 @@ const SignIn: React.FC = () => {
         <Title style={{marginBottom: 40}}>UrbanFix App</Title>
 
         <Form ref={formRef} onSubmit={handleSubmit}>
-          <InputMask type={'cel-phone'} icon="smartphone" placeholder="telefone" name="username" keyboardType={'number-pad'} />
-          <Input icon="lock" placeholder="senha" name="password" keyboardType={'number-pad'} secureTextEntry />
+          <InputMask type={'cel-phone'} icon="smartphone" placeholder="telefone" placeholderTextColor={Constants.colorGray} name="username" keyboardType={'number-pad'} />
+          <Input icon="lock" placeholder="senha" placeholderTextColor={Constants.colorGray} name="password" keyboardType={'number-pad'} secureTextEntry />
 
           <ButtonSubmit onPress={() => formRef?.current?.submitForm()} >
             <Icon name="input" size={20} color='white' />

@@ -103,7 +103,7 @@ export interface IListTickets {
     latitude: string;
     longitude: string;
     type: IGenericTypeOfTicket;
-    status: Array<IGenericTypeOfTicket>;
+    status: IGenericTypeOfTicket;
 
 }
 
@@ -120,7 +120,7 @@ export interface TicketContextData {
     handleCep(cep: string): Promise<void>;
     handleSetIdProblem(id: number): void;
     handleSetCoordinate( coordinate: LatLng ): void;
-    handlePlaceConfirm( data: PlaceFromData): void;
+    handlePlaceConfirm( data: PlaceFromData): Promise<void>;
     handleListMyTickets():  Promise<void>;
 }
 

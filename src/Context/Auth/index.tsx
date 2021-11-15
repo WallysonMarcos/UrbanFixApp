@@ -51,7 +51,7 @@ export const AuthProvider: React.FC = ({ children }) => {
                 username,
                 password
             }).catch(e => {
-                if (e.response.status === 401) {
+                if (e?.response?.status === 401) {
                     throw new Error('Usuário ou senha inválidos')
                 } else {
                     throw new Error(e.message)

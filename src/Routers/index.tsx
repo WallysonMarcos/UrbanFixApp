@@ -10,14 +10,8 @@ import Constants from '../Constants';
 const Routes: React.FC = () => {
 
   const { authorized, loading } = useAuth();
-
-  if(loading){
-    return (
-       <ActivityIndicator animating={loading} size="large" color={Constants.colorPrimary} />
-    );
-  }else{
-    return  authorized ? <AppRoutes /> : <AuthRoutes />;
-  }
+  
+  return  authorized ? <AppRoutes /> : <AuthRoutes />; 
   
 
 };
