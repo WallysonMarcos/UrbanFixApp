@@ -74,6 +74,15 @@ export interface ProblemsData {
     icon: string;
 }
 
+
+
+export interface EventsTicket {
+    id: number;
+    dtEvent: string;
+    note: string;
+}
+
+
 export interface PlaceFromData {
     cep: string;
     publicPlace: string;
@@ -111,6 +120,7 @@ export interface TicketContextData {
     loading: boolean;
     successed: boolean;
     ticket: TicketData ;
+    events: Array<EventsTicket>  | null;
     tickets: Array<IListTickets> | null;
     selected: number;
     problems: Array<ProblemsData>;
@@ -121,7 +131,8 @@ export interface TicketContextData {
     handleSetIdProblem(id: number): void;
     handleSetCoordinate( coordinate: LatLng ): void;
     handlePlaceConfirm( data: PlaceFromData): Promise<void>;
-    handleListMyTickets():  Promise<void>;
+    ListMyTickets():  Promise<void>;
+    ListEventOfTicket( ticketId: number): Promise<void>;
 }
 
 export interface ConsultCep { 

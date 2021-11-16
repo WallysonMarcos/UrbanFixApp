@@ -2,7 +2,7 @@ import React, { createContext, useCallback, useContext, useEffect, useState } fr
 import { Alert } from "react-native";
 
 import { ilumineApi, viaCepApi } from "../../Services/api";
-import { ConsultCep, TicketContextData, TicketData, LatLng, PlaceFromData, IListTickets } from "../../Types";
+import { ConsultCep, TicketContextData, TicketData, LatLng, EventsTicket, IListTickets } from "../../Types";
 import { useAuth } from "../Auth";
 
 const InitialContext = {
@@ -28,6 +28,7 @@ export const TicketProvider: React.FC = ({ children }) => {
     const [successed, setSuccessed] = useState(false);
     const [selected, setSelected] = useState(0);
     const [tickets, setTickets] = useState< Array<IListTickets> | null >(null);
+    const [events, setEvents] = useState<Array<EventsTicket> | null>(null);
     const [ticket, setTicket] = useState<TicketData>(InitialContext);
     const [consultCep, setConsultCep] = useState<ConsultCep | null>(null);
     const [coordinate, setCoordinate] = useState<LatLng>({ latitude: -12.740919, longitude: -60.132189 })
@@ -87,7 +88,7 @@ export const TicketProvider: React.FC = ({ children }) => {
         
     }, []);
 
-    const handleListMyTickets = useCallback(async () => {
+    const ListMyTickets = useCallback(async () => {
         try {
             setSuccessed(false);
             setLoading(true);
@@ -112,14 +113,31 @@ export const TicketProvider: React.FC = ({ children }) => {
             setLoading(false);        }
     }, []);
 
+    const ListEventOfTicket = async (ticketId: number) => {
+        try {
+            setSuccessed(false);
+            setLoading(true);
+
+            await ilumineApi.get(`ticket/${ticketId}/events`).then((response) => {                
+                setEvents(response.data);
+                setSuccessed(true);
+            }).catch((e: any) => {
+                throw new Error(e.response.data.message[0]);
+            });
+
+        } catch (e: any) {
+            Alert.alert('Ops!', e.message);
+        }
+        finally {
+            setLoading(false);
+        }
+    };
+
     const handleNewTicket = async () => {
 
         try {
             setSuccessed(false);
             setLoading(true);
-
-            
-            console.log("NewTciket ==> " + JSON.stringify(ticket))
 
             await ilumineApi.post('ticket', ticket).then((response) => {
                 Alert.alert('Sucesso!', response.data.message);
@@ -186,6 +204,7 @@ export const TicketProvider: React.FC = ({ children }) => {
                 loading,
                 successed,
                 ticket,
+                events,
                 tickets,
                 selected,
                 coordinate,
@@ -196,7 +215,8 @@ export const TicketProvider: React.FC = ({ children }) => {
                 handleSetIdProblem,
                 handleSetCoordinate,
                 handlePlaceConfirm,
-                handleListMyTickets
+                ListMyTickets,
+                ListEventOfTicket
             }}>
             {children}
         </TicketContext.Provider>
@@ -215,6 +235,7 @@ export function useTicket() {
         successed,
         ticket,
         tickets, 
+        events,
         selected,
         coordinate,
         consultCep,
@@ -224,7 +245,8 @@ export function useTicket() {
         handleSetIdProblem,
         handleSetCoordinate,
         handlePlaceConfirm,
-        handleListMyTickets
+        ListMyTickets,
+        ListEventOfTicket
     } = context;
 
     return {
@@ -232,6 +254,7 @@ export function useTicket() {
         successed,
         ticket, 
         tickets,
+        events,
         selected,
         coordinate,
         consultCep,
@@ -241,6 +264,7 @@ export function useTicket() {
         handleSetIdProblem,
         handleSetCoordinate,
         handlePlaceConfirm,
-        handleListMyTickets
+        ListMyTickets,
+        ListEventOfTicket
     }
 };

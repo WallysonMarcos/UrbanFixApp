@@ -21,10 +21,10 @@ type Props = NativeStackScreenProps<RootStackParamList, 'Home'>;
 
 const Home = ({ navigation }: Props) => {
 
-    const { tickets, loading, handleListMyTickets } = useTicket();
+    const { tickets, loading, ListMyTickets } = useTicket();
 
     useEffect(() => {
-        handleListMyTickets();
+        ListMyTickets();
     }, []);
 
     return (
@@ -33,12 +33,13 @@ const Home = ({ navigation }: Props) => {
                 <ActivityIndicator animating={loading} size="large" color={Constants.colorPrimary} />
                 :
                 <FlatList
+                    initialNumToRender={10}
                     style={{ flex: 1, height: '100%', marginTop: 5 }}
                     data={tickets}
                     keyExtractor={item => item.id}
                     showsVerticalScrollIndicator={false}
                     showsHorizontalScrollIndicator={false}
-                    refreshControl={<RefreshControl refreshing={loading} onRefresh={handleListMyTickets} />}
+                    refreshControl={<RefreshControl refreshing={loading} onRefresh={ListMyTickets} />}
                     renderItem={({ item } : { item: IListTickets}) => (
                         <ConternerItem onPress={() => navigation.navigate('TicketDetail',{ ticket: item })} >
                             <View style={{ width: '100%', height: '65%' }} >
