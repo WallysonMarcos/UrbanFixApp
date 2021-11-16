@@ -49,7 +49,7 @@ const Home = ({ navigation }: Props) => {
                                     scrollEnabled={false}
                                     toolbarEnabled={false}
                                     zoomEnabled={false}
-                                    liteMode={true}
+                                    liteMode={true}                                    
                                     customMapStyle={Constants.mapStyle}
                                     initialRegion={{
                                         latitude: parseFloat(item.latitude) || -12.740919,
