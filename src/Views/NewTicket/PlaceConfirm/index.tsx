@@ -21,7 +21,7 @@ type Props = NativeStackScreenProps<RootStackParamList, 'PlaceConfirm'>;
 const PlaceConfirm = ({ navigation }: Props) => {
 
     const formRef = useRef<FormHandles>(null);
-    const { successed, loading, ticket, handleCep, handlePlaceConfirm, handleNewTicket, handleListMyTickets} = useTicket();
+    const { successed, loading, ticket, handleCep, handleNewTicket, ListMyTickets} = useTicket();
 
     useEffect(() => {
         formRef.current?.setFieldValue('cep', ticket?.cepMasked);
@@ -38,7 +38,7 @@ const PlaceConfirm = ({ navigation }: Props) => {
 
 
     const handleSubmit: SubmitHandler<PlaceFromData> = async (data) => {
-        try {
+        try { 
             formRef.current?.setErrors({});
             const schema = Yup.object().shape({
                 cep: Yup.string().required('O cep precisa ser informado!'),
@@ -49,16 +49,27 @@ const PlaceConfirm = ({ navigation }: Props) => {
                 abortEarly: false,
             });
 
-            const { cep, publicPlace, suburb, number, complements, note } = data;
             
-            await handlePlaceConfirm( { cep, publicPlace, suburb, number, complements, note }  );
-
-            await handleNewTicket();
+            const { cep , publicPlace, suburb, number, complements, note } = data;
+            const {idProblem, latitude, longitude} = ticket;
             
-            if(successed){ 
-                await handleListMyTickets();
-                navigation.navigate('Home');
+            const _ticket = {
+                idProblem,
+                latitude, 
+                longitude,
+                cep: cep.replace('-', ''), 
+                publicPlace, 
+                suburb, 
+                number, 
+                complements, 
+                note
             }
+
+            await handleNewTicket( _ticket, async() => {
+                await ListMyTickets();
+                navigation.navigate('Home');
+            });
+             
  
         }
         catch (err) {

@@ -28,7 +28,6 @@ export const TicketProvider: React.FC = ({ children }) => {
     const [successed, setSuccessed] = useState(false);
     const [selected, setSelected] = useState(0);
     const [tickets, setTickets] = useState< Array<IListTickets> | null >(null);
-    const [events, setEvents] = useState<Array<EventsTicket> | null>(null);
     const [ticket, setTicket] = useState<TicketData>(InitialContext);
     const [consultCep, setConsultCep] = useState<ConsultCep | null>(null);
     const [coordinate, setCoordinate] = useState<LatLng>({ latitude: -12.740919, longitude: -60.132189 })
@@ -64,30 +63,7 @@ export const TicketProvider: React.FC = ({ children }) => {
         }));
         setSelected(id);
     }, []);
-
-    const handlePlaceConfirm = useCallback( async ({ cep, publicPlace, suburb, number, complements, note }) => {
-
-        
-        try { 
-            setLoading(true);
-            await setTimeout(() => { 
-                setTicket(prevState => ({
-                    ...prevState,
-                    cep,
-                    publicPlace,
-                    suburb,
-                    number,
-                    complements,
-                    note,
-                }));
-            }, 1000);
-        } finally { 
-            setLoading(false);
-        }
-
-        
-    }, []);
-
+  
     const ListMyTickets = useCallback(async () => {
         try {
             setSuccessed(false);
@@ -113,43 +89,23 @@ export const TicketProvider: React.FC = ({ children }) => {
             setLoading(false);        }
     }, []);
 
-    const ListEventOfTicket = async (ticketId: number) => {
-        try {
-            setSuccessed(false);
-            setLoading(true);
+    
 
-            await ilumineApi.get(`ticket/${ticketId}/events`).then((response) => {                
-                setEvents(response.data);
-                setSuccessed(true);
-            }).catch((e: any) => {
-                throw new Error(e.response.data.message[0]);
-            });
+    const handleNewTicket = async ( data: TicketData,  onSuccess: Function) => {
 
-        } catch (e: any) {
-            Alert.alert('Ops!', e.message);
-        }
-        finally {
-            setLoading(false);
-        }
-    };
-
-    const handleNewTicket = async () => {
-
-        try {
-            setSuccessed(false);
-            setLoading(true);
-
-            await ilumineApi.post('ticket', ticket).then((response) => {
+        try { 
+            setLoading(true); 
+            
+            await ilumineApi.post('ticket', data).then((response) => {
                 Alert.alert('Sucesso!', response.data.message);
                 setSelected(0);
                 setCoordinate({ latitude: -12.740919, longitude: -60.132189 });
                 setTicket(InitialContext);
-                setSuccessed(true);
-            }).catch((e: any) => {
-                console.log(e.response.data)
+                onSuccess();
+            }).catch((e: any) => { 
+                console.log(e.response.data.message)
                 throw new Error(e.response.data.message[0])
             });
-
 
         } catch (e: any) {
             Alert.alert('Ops!', e.message);
@@ -159,20 +115,20 @@ export const TicketProvider: React.FC = ({ children }) => {
         }
     };
 
-    const handleCep = useCallback(async (cep) => {
+    const handleCep = useCallback(async (_cep) => {
         try {
             setLoading(true);
             setSuccessed(false);
             setConsultCep(null); 
 
-            await viaCepApi.get(`${cep}/json`).then((response) => {
+            await viaCepApi.get(`${_cep}/json`).then((response) => {
                 let _consultaCep = response.data as ConsultCep;
 
                 setConsultCep(response.data)
                 setTicket(prevState => ({
                     ...prevState,
-                    cep: cep.replace('-', ''),
-                    cepMasked: cep,
+                    cep: _cep.replace('-', ''),
+                    cepMasked: _cep,
                     suburb: _consultaCep.bairro,
                     publicPlace: _consultaCep.logradouro
                 }))
@@ -203,8 +159,7 @@ export const TicketProvider: React.FC = ({ children }) => {
             value={{
                 loading,
                 successed,
-                ticket,
-                events,
+                ticket, 
                 tickets,
                 selected,
                 coordinate,
@@ -213,10 +168,8 @@ export const TicketProvider: React.FC = ({ children }) => {
                 handleNewTicket,
                 handleCep,
                 handleSetIdProblem,
-                handleSetCoordinate,
-                handlePlaceConfirm,
-                ListMyTickets,
-                ListEventOfTicket
+                handleSetCoordinate, 
+                ListMyTickets
             }}>
             {children}
         </TicketContext.Provider>
@@ -235,7 +188,6 @@ export function useTicket() {
         successed,
         ticket,
         tickets, 
-        events,
         selected,
         coordinate,
         consultCep,
@@ -243,10 +195,8 @@ export function useTicket() {
         handleNewTicket,
         handleCep,
         handleSetIdProblem,
-        handleSetCoordinate,
-        handlePlaceConfirm,
-        ListMyTickets,
-        ListEventOfTicket
+        handleSetCoordinate, 
+        ListMyTickets
     } = context;
 
     return {
@@ -254,7 +204,6 @@ export function useTicket() {
         successed,
         ticket, 
         tickets,
-        events,
         selected,
         coordinate,
         consultCep,
@@ -262,9 +211,7 @@ export function useTicket() {
         handleNewTicket,
         handleCep,
         handleSetIdProblem,
-        handleSetCoordinate,
-        handlePlaceConfirm,
-        ListMyTickets,
-        ListEventOfTicket
+        handleSetCoordinate, 
+        ListMyTickets
     }
 };

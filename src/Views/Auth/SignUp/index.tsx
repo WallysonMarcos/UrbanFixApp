@@ -40,12 +40,12 @@ const SignUp  = ({ navigation }: Props) => {
 
       const { name, lastName, email, cellNumber, password } = data;
 
-      await handleSignUp({ name, lastName, email, cellNumber, password })
-      
-      if(successed){
+      await handleSignUp({ name, lastName, email, cellNumber, password }, () => {
         navigation.goBack();
-        navigation.navigate('Confirm',{ cellNumber });        
-      }
+        navigation.navigate('Confirm',{ cellNumber });       
+      })
+       
+      
       
     } catch (err) {
       var msg = "";

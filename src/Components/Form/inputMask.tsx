@@ -96,6 +96,7 @@ const InputMask: React.FC<InputProps> = ({ name, icon, onChangeText, ...rest }) 
                 defaultValue={defaultValue}
                 value={value}
                 onChangeText={handleOnChangeText}
+                placeholderTextColor={Constants.colorGray} 
                 ref={inputRef}
                 includeRawValueInChangeText
                 {...rest}

@@ -37,7 +37,7 @@ interface ValidationErrorData {
 const SignIn: React.FC = () => {
 
   const formRef = useRef<FormHandles>(null);
-  const { handleSignIn, loading } = useAuth();
+  const { handleSignIn, loading, confirmCell } = useAuth();
   const navigation = useNavigation<SignUpScreenProp>();
 
   const handleSubmit: SubmitHandler<SignInFormData> = async (data) => {
@@ -54,8 +54,9 @@ const SignIn: React.FC = () => {
       });
 
       const { username, password } = data;
-
-      handleSignIn({ username, password });
+      
+      await handleSignIn({ username, password }, () => { navigation.navigate('Confirm', { cellNumber: username }); });
+       
 
     } catch (err) {
       var msg = "";

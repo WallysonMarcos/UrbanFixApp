@@ -91,6 +91,7 @@ const Input: React.FC<InputProps> = ({ name, icon, onChangeText, ...rest }) => {
                 onBlur={handleInputBlur}
                 defaultValue={defaultValue}
                 onChangeText={handleOnChangeText}
+                placeholderTextColor={Constants.colorGray} 
                 ref={inputRef}
                 {...rest}
             />

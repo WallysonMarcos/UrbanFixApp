@@ -5,6 +5,8 @@ import {
     Container, ConternerItem, Separator, ButtonRoundAdd, ItemDetailStatus, ItemDetail
 } from './styles';
 
+import { formatDateToBr } from '../../Helper';
+
 import Icon from 'react-native-vector-icons/MaterialIcons';
 import Constants from '../../Constants';
 import { IListTickets } from '../../Types'
@@ -40,17 +42,17 @@ const Home = ({ navigation }: Props) => {
                     showsVerticalScrollIndicator={false}
                     showsHorizontalScrollIndicator={false}
                     refreshControl={<RefreshControl refreshing={loading} onRefresh={ListMyTickets} />}
-                    renderItem={({ item } : { item: IListTickets}) => (
-                        <ConternerItem onPress={() => navigation.navigate('TicketDetail',{ ticket: item })} >
+                    renderItem={({ item }: { item: IListTickets }) => (
+                        <ConternerItem key={item.id} onPress={() => navigation.navigate('TicketDetail', { ticket: item })} >
                             <View style={{ width: '100%', height: '65%' }} >
                                 <MapView style={{ flex: 1 }}
                                     showsUserLocation={false}
-                                    provider={PROVIDER_GOOGLE} 
+                                    provider={PROVIDER_GOOGLE}
                                     showsMyLocationButton={false}
                                     scrollEnabled={false}
                                     toolbarEnabled={false}
                                     zoomEnabled={false}
-                                    liteMode={true}                                    
+                                    liteMode={true}
                                     customMapStyle={Constants.mapStyle}
                                     initialRegion={{
                                         latitude: parseFloat(item.latitude) || -12.740919,
@@ -72,15 +74,18 @@ const Home = ({ navigation }: Props) => {
                             <Separator />
                             <ItemDetail>
                                 <View style={{ flexDirection: 'column', justifyContent: 'space-between' }}>
-                                    <Text numberOfLines={1} style={{ color: '#777', fontSize: 16, fontWeight: 'bold' }}>{item.dtOpen.split('T')[0]}</Text>
-                                    <Text style={{ color: '#777' }}>{item.note || ''}</Text>
+                                    <Text numberOfLines={1} style={{ color: '#777' }}>{item.note || ''}</Text>
+                                    <Text numberOfLines={1} style={{ color: '#777', fontSize: 11}}>{
+                                        formatDateToBr(item.dtOpen.split('T')[0])
+                                    }</Text>
+                                    
                                 </View>
                                 <Text numberOfLines={1} style={{ color: '#777', fontStyle: 'italic', fontSize: 11, marginTop: 5, paddingRight: 5 }}>{
                                     `${item.publicPlace}, Nº ${item.number}, ${item.suburb || ''}`
                                 }</Text>
 
                             </ItemDetail>
-                            <ItemDetailStatus colorStatus={ item.status.color }>
+                            <ItemDetailStatus colorStatus={item.status.color}>
                                 <Text style={{ color: '#fff', fontSize: 11, textAlign: 'center' }}>{item.status?.description}</Text>
                             </ItemDetailStatus>
                         </ConternerItem>
