@@ -31,12 +31,13 @@ export  interface ConfirmNumber {
 export interface AuthContextData {
     authorized: boolean;
     loading: boolean;
+    confirmCell: boolean;
     successed: boolean;
     user: UserContext | null;
-    handleSignIn(credentials: AuthCredentials): Promise<void>,
+    handleSignIn(credentials: AuthCredentials, onConfirmCell: Function): Promise<void>,
     handleSignOut(): Promise<void>;
-    handleSignUp(data: SignInData): Promise<void>,
-    handleConfirm(data: ConfirmData): Promise<void>
+    handleSignUp(data: SignInData, onSuccess: Function): Promise<void>,
+    handleConfirm(data: ConfirmData, onSuccess: Function): Promise<void>
 }
 
 export interface ValidationErrorData {
@@ -52,6 +53,7 @@ export interface ConfirmData {
 export interface TicketData {
     idProblem: number;
     cep: string;
+    cepMasked?: string | null;
     publicPlace: string;
     complements: string;
     number: number;
@@ -73,6 +75,15 @@ export interface ProblemsData {
     icon: string;
 }
 
+
+
+export interface EventsTicket {
+    id: number;
+    dtEvent: string;
+    note: string;
+}
+
+
 export interface PlaceFromData {
     cep: string;
     publicPlace: string;
@@ -82,19 +93,44 @@ export interface PlaceFromData {
     note: string;
 }
 
+export  interface IGenericTypeOfTicket {
+    id: number;
+    description: string;
+    color: string | null;
+}
+ 
+
+export interface IListTickets {
+    id: number; 
+    dtOpen: string;
+    dtClose: string | null;
+    cep: string;
+    publicPlace: string;
+    complements: string;
+    number: number;
+    suburb: string;
+    note: string;
+    latitude: string;
+    longitude: string;
+    type: IGenericTypeOfTicket;
+    status: IGenericTypeOfTicket;
+
+}
+
 export interface TicketContextData {
     loading: boolean;
     successed: boolean;
-    ticket: TicketData ;
+    ticket: TicketData ; 
+    tickets: Array<IListTickets> | null;
     selected: number;
-    coordinate: LatLng;
     problems: Array<ProblemsData>;
+    coordinate: LatLng;    
     consultCep: ConsultCep  | null;
-    handleNewTicket(): Promise<void>,
+    handleNewTicket( data: TicketData, onSuccess: Function): Promise<void>,
     handleCep(cep: string): Promise<void>;
     handleSetIdProblem(id: number): void;
-    handleSetCoordinate( coordinate: LatLng ): void;
-    handlePlaceConfirm( data: PlaceFromData): void;
+    handleSetCoordinate( coordinate: LatLng ): void; 
+    ListMyTickets():  Promise<void>; 
 }
 
 export interface ConsultCep { 

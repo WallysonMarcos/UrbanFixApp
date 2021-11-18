@@ -1,9 +1,9 @@
 import React, { useCallback, useEffect, useState } from 'react';
-import { ActivityIndicator, Alert, Dimensions } from 'react-native';
+import {  Alert, Dimensions } from 'react-native';
 
-import MapView, { Marker, PROVIDER_GOOGLE, LatLng } from 'react-native-maps';
+import MapView, { Marker, PROVIDER_GOOGLE  } from 'react-native-maps';
 
-import { Container, Title, Content, ButtonSubmit, ButtonRoundAdd, TextButton } from './styles';
+import { Container,  ButtonRoundAdd, } from './styles';
 
 import Icon from 'react-native-vector-icons/MaterialIcons';
 
@@ -12,7 +12,6 @@ import { NativeStackScreenProps } from '@react-navigation/native-stack';
 import { RootStackParamList } from '../../Routers/rootStackParam';
 
 import { useTicket } from '../../Context/Ticket';
-import { TouchableOpacity } from 'react-native-gesture-handler';
 
 type Props = NativeStackScreenProps<RootStackParamList, 'NewTicket'>;
 
@@ -51,15 +50,12 @@ const NewTicket = ({ navigation }: Props) => {
     return (
 
         <Container>
-            <MapView style={{ flex: 1, width: '100%', height: '100%' }}
-                showsUserLocation={true}
-                showsMyLocationButton={false}
-                // provider={PROVIDER_GOOGLE}
+            <MapView style={{ flex: 1, width: '100%', height: '100%' }} 
+                provider={PROVIDER_GOOGLE} 
                 showsBuildings={false}
-                toolbarEnabled={false}
-                maxZoomLevel={50} 
-                zoomEnabled={true}
-                region={initRegion}
+                liteMode={true} 
+                maxZoomLevel={50}  
+                zoomEnabled={true} 
                 onPress={e => handleSetCoordinate(e.nativeEvent.coordinate)}
                 initialRegion={initRegion} >
 
@@ -74,7 +70,7 @@ const NewTicket = ({ navigation }: Props) => {
 
 
             <ButtonRoundAdd onPress={handlePreValid} >
-                <Icon name="add" size={20} color='white' />
+                <Icon name="east" size={20} color='white' />
             </ButtonRoundAdd>
 
         </Container>

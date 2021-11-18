@@ -45,13 +45,10 @@ const Confirm = ({ route, navigation }: Props) => {
                 abortEarly: false,
             });
 
-            const { cellNumber =  route.params.cellNumber , token } = data;
-            
-            await handleConfirm({ cellNumber, token });
-
-            if (successed){
+            const { cellNumber =  route.params.cellNumber , token } = data; 
+            await handleConfirm({ cellNumber, token: formatToken(token) }, () => {
                 navigation.navigate('SignIn');
-            }
+            });
 
         } catch (err) {
             var msg = "";
@@ -123,6 +120,13 @@ function formatTel( tel: string) {
     tel=tel.replace(/(.{4})$/,"-$1")
 
     return tel;
+}
+
+
+function formatToken( token: string) {
+    token=token.replace("-","");
+
+    return token;
 }
 
 

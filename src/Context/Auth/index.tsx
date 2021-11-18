@@ -4,7 +4,7 @@ import { Alert } from 'react-native';
 
 import { ilumineApi } from '../../Services/api';
 
-import { AuthContextData, UserContext} from '../../Types';
+import { AuthContextData, UserContext, AuthCredentials} from '../../Types';
 
 
 //Cria o contexto a ser utilizado no fluxo de autentição
@@ -19,6 +19,7 @@ export const AuthProvider: React.FC = ({ children }) => {
     const [loading, setLoading] = useState(false);
     const [successed, setSuccessed] = useState(false);
     const [user, setUser] = useState<UserContext | null>(null);
+    const [confirmCell, SetConfirmCell] = useState(false);
 
 
     //Hook que vai executar assim que o Provider for carregado
@@ -43,16 +44,18 @@ export const AuthProvider: React.FC = ({ children }) => {
     }, [])
 
     //Função responsavel por autentição do usuário
-    const handleSignIn = useCallback(async ({ username, password }) => {
+    const handleSignIn = async ({ username, password } : AuthCredentials, onConfirmCell: Function ) => {
+        let _needConfirmCell = false;
         try {
             setLoading(true);
             setSuccessed(false);
             const response = await ilumineApi.post('auth/signin', {
                 username,
                 password
-            }).catch(e => {
-                if (e.response.status === 401) {
-                    throw new Error('Usuário ou senha inválidos')
+            }).catch(e => { 
+                if (e?.response?.data.statusCode === 401) {    
+                    _needConfirmCell = true;
+                    throw new Error(e?.response.data.message);                                      
                 } else {
                     throw new Error(e.message)
                 }
@@ -65,19 +68,21 @@ export const AuthProvider: React.FC = ({ children }) => {
             setSuccessed(true);
         }
         catch (e: any) {
-            setSuccessed(false);
-            Alert.alert("Ops!", e.message);
+            setSuccessed(false); 
+            Alert.alert("Ops!", e.message); 
+            if(_needConfirmCell){
+                onConfirmCell();
+            }
         }
         finally {
             setLoading(false);
         }
-    }, []);
+    };
 
     //
-    const handleSignUp = useCallback(async ({ name, lastName, cellNumber, email, password }) => {
+    const handleSignUp = useCallback(async ({ name, lastName, cellNumber, email, password }, onSuccess: Function) => {
         try {
-            setLoading(true);
-            setSuccessed(false);
+            setLoading(true); 
             const response = await ilumineApi.post('users', {
                 name, lastName, cellNumber, email, password, 
                 deviceToken:"meuIphone",
@@ -90,11 +95,10 @@ export const AuthProvider: React.FC = ({ children }) => {
                     throw new Error(err.message)
                 }
             });
-            setSuccessed(true);
             Alert.alert("Sucesso", "Registro efeturado com sucesso!");
+            onSuccess();
 
-        } catch (e: any) {
-            setSuccessed(false);
+        } catch (e: any) { 
             Alert.alert("Ops!", e.message);
         }
         finally {
@@ -102,21 +106,19 @@ export const AuthProvider: React.FC = ({ children }) => {
         }
     }, []);
 
-    const handleConfirm = useCallback(async ({ cellNumber, token }) => {
+    const handleConfirm = useCallback(async ({ cellNumber, token }, onSuccess: Function) => {
         try {
-            setLoading(true);
-            setSuccessed(false);
-            const response = await ilumineApi.post('auth/confirmcell', { cellNumber, token  }).catch(err => {
-                if (err.data != undefined) {
-                    throw new Error(err.data.message)
+            setLoading(true); 
+            const response = await ilumineApi.post('auth/confirmcell', { cellNumber, token  }).catch(e => {
+                if (e?.response?.data) {                           
+                    throw new Error(e?.response.data.message);                                      
                 } else {
-                    throw new Error(err.message)
+                    throw new Error(e.message)
                 }
-            });
-            setSuccessed(true);
+            }); 
+            onSuccess();
 
-        } catch (e: any) {
-            setSuccessed(false);
+        } catch (e: any) { 
             Alert.alert("Ops!", e.message);            
         }
         finally {
@@ -145,6 +147,7 @@ export const AuthProvider: React.FC = ({ children }) => {
                 authorized: !!user,
                 loading,
                 successed,
+                confirmCell,
                 user,
                 handleSignIn,
                 handleSignOut,
@@ -163,6 +166,6 @@ export function useAuth() {
     if (!context)
         throw new Error('useAuth must be used within an AuthProvider');
 
-    const { loading, authorized, successed, user, handleSignIn, handleSignOut, handleSignUp, handleConfirm } = context;
-    return { loading, authorized, successed, user, handleSignIn, handleSignOut, handleSignUp, handleConfirm};
+    const { loading, authorized, confirmCell, successed, user, handleSignIn, handleSignOut, handleSignUp, handleConfirm } = context;
+    return { loading, authorized, confirmCell, successed, user, handleSignIn, handleSignOut, handleSignUp, handleConfirm};
 }

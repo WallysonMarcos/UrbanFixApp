@@ -9,15 +9,12 @@ import { Container, Title, Content, ButtonSubmit, TextButton, RegisterText } fro
 
 import { Input, InputMask } from '../../../Components/Form';
 
-import { ActivityIndicator, Alert, View } from 'react-native';
+import { ActivityIndicator, Alert, View, TouchableOpacity } from 'react-native';
 import Constants from '../../../Constants';
 import { useAuth } from '../../../Context/Auth';
 
 import { SignInData, ValidationErrorData, SignInScreenProp} from '../../../Types';
-
-import { TouchableOpacity } from 'react-native-gesture-handler';
-
-
+ 
 import { NativeStackScreenProps } from '@react-navigation/native-stack';
 import { RootStackParamList } from '../../../Routers/rootStackParam';
 
@@ -43,12 +40,12 @@ const SignUp  = ({ navigation }: Props) => {
 
       const { name, lastName, email, cellNumber, password } = data;
 
-      await handleSignUp({ name, lastName, email, cellNumber, password })
-      
-      if(successed){
+      await handleSignUp({ name, lastName, email, cellNumber, password }, () => {
         navigation.goBack();
-        navigation.navigate('Confirm',{ cellNumber });        
-      }
+        navigation.navigate('Confirm',{ cellNumber });       
+      })
+       
+      
       
     } catch (err) {
       var msg = "";

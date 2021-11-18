@@ -37,13 +37,11 @@ interface ValidationErrorData {
 const SignIn: React.FC = () => {
 
   const formRef = useRef<FormHandles>(null);
-  const { handleSignIn, loading } = useAuth();
+  const { handleSignIn, loading, confirmCell } = useAuth();
   const navigation = useNavigation<SignUpScreenProp>();
 
   const handleSubmit: SubmitHandler<SignInFormData> = async (data) => {
-
-    console.log(data)
-
+ 
     try {
       formRef.current?.setErrors({});
       const schema = Yup.object().shape({
@@ -56,8 +54,9 @@ const SignIn: React.FC = () => {
       });
 
       const { username, password } = data;
-
-      handleSignIn({ username, password });
+      
+      await handleSignIn({ username, password }, () => { navigation.navigate('Confirm', { cellNumber: username }); });
+       
 
     } catch (err) {
       var msg = "";
@@ -83,8 +82,8 @@ const SignIn: React.FC = () => {
         <Title style={{marginBottom: 40}}>UrbanFix App</Title>
 
         <Form ref={formRef} onSubmit={handleSubmit}>
-          <InputMask type={'cel-phone'} icon="smartphone" placeholder="telefone" name="username" keyboardType={'number-pad'} />
-          <Input icon="lock" placeholder="senha" name="password" keyboardType={'number-pad'} secureTextEntry />
+          <InputMask type={'cel-phone'} icon="smartphone" placeholder="telefone" placeholderTextColor={Constants.colorGray} name="username" keyboardType={'number-pad'} />
+          <Input icon="lock" placeholder="senha" placeholderTextColor={Constants.colorGray} name="password" keyboardType={'number-pad'} secureTextEntry />
 
           <ButtonSubmit onPress={() => formRef?.current?.submitForm()} >
             <Icon name="input" size={20} color='white' />

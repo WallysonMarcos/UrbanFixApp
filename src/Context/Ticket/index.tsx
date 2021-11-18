@@ -2,11 +2,13 @@ import React, { createContext, useCallback, useContext, useEffect, useState } fr
 import { Alert } from "react-native";
 
 import { ilumineApi, viaCepApi } from "../../Services/api";
-import { ConsultCep, TicketContextData, TicketData, LatLng, PlaceFromData } from "../../Types";
+import { ConsultCep, TicketContextData, TicketData, LatLng, EventsTicket, IListTickets } from "../../Types";
+import { useAuth } from "../Auth";
 
 const InitialContext = {
     idProblem: 0,
     cep: "",
+    cepMasked: "",
     publicPlace: "",
     complements: "",
     number: 0,
@@ -21,42 +23,39 @@ const TicketContext = createContext<TicketContextData>({} as TicketContextData);
 
 export const TicketProvider: React.FC = ({ children }) => {
 
+    
     const [loading, setLoading] = useState(false);
     const [successed, setSuccessed] = useState(false);
-    const [selected, setSelected] = useState(0)
+    const [selected, setSelected] = useState(0);
+    const [tickets, setTickets] = useState< Array<IListTickets> | null >(null);
     const [ticket, setTicket] = useState<TicketData>(InitialContext);
     const [consultCep, setConsultCep] = useState<ConsultCep | null>(null);
     const [coordinate, setCoordinate] = useState<LatLng>({ latitude: -12.740919, longitude: -60.132189 })
+    const { handleSignOut } = useAuth();
 
     const [problems, setProblems] = useState([
         {
             id: 1,
             description: "LÂMPADA QUEIMADA",
-            icon: "loader"
+            icon: "highlight-off"
         },
         {
             id: 2,
             description: "LÂMPADA ACESA",
-            icon: "map"
+            icon: "lightbulb"
         },
         {
             id: 3,
             description: "LÂMPADA OSCILANDO",
-            icon: "alert-octagon"
+            icon: "new-releases"
         },
         {
             id: 4,
             description: "LÂMPADA DANIFICADA",
-            icon: "play-circle"
+            icon: "broken-image"
         }
     ]);
-
-    function resetDatAfterPost() {
-        setSelected(0);
-        setCoordinate({ latitude: -12.740919, longitude: -60.132189 });
-        setTicket(InitialContext);
-    }
-
+ 
     const handleSetIdProblem = useCallback((id: number) => {
         setTicket(prevState => ({
             ...prevState,
@@ -64,38 +63,49 @@ export const TicketProvider: React.FC = ({ children }) => {
         }));
         setSelected(id);
     }, []);
-
-    const handlePlaceConfirm = useCallback((data: PlaceFromData) => {
-        setTicket(prevState => ({
-            ...prevState,
-            cep: data.cep.replace('-', ''),
-            publicPlace: data.publicPlace,
-            suburb: data.suburb,
-            number: data.number,
-            complements: data.complements,
-            note: data.note,
-        }));
-    }, []);
-
-    const handleNewTicket = async () => {
-
-
-        setSuccessed(false);
-
+  
+    const ListMyTickets = useCallback(async () => {
         try {
-
+            setSuccessed(false);
             setLoading(true);
-            console.log(ticket)
 
-            await ilumineApi.post('ticket', ticket).then((response) => {
-                console.log(response.data.message)
-                resetDatAfterPost();
+            await ilumineApi.get('ticket').then((response) => { 
+                let _tickets = response.data;
+                _tickets.sort((a: any,b: any) => (a.id < b.id) ? 1 : ((b.id < a.id) ? -1 : 0))
+                setTickets(_tickets);                
                 setSuccessed(true);
             }).catch((e: any) => {
-                console.log(e.response.data)
-                throw new Error(e.response.data.message[0])
+                if (e.response.status === 401) {
+                    handleSignOut();
+                } else {
+                    throw new Error(e.response.data.message[0])
+                }
             });
 
+        } catch (e: any) {
+            Alert.alert('Ops!', e.message);
+        }
+        finally {
+            setLoading(false);        }
+    }, []);
+
+    
+
+    const handleNewTicket = async ( data: TicketData,  onSuccess: Function) => {
+
+        try { 
+            setLoading(true); 
+            
+            await ilumineApi.post('ticket', data).then((response) => {
+                Alert.alert('Sucesso!', response.data.message);
+                setSelected(0);
+                setCoordinate({ latitude: -12.740919, longitude: -60.132189 });
+                setTicket(InitialContext);
+                onSuccess();
+            }).catch((e: any) => { 
+                console.log(e.response.data.message)
+                throw new Error(e.response.data.message[0])
+            });
 
         } catch (e: any) {
             Alert.alert('Ops!', e.message);
@@ -105,21 +115,20 @@ export const TicketProvider: React.FC = ({ children }) => {
         }
     };
 
-    const handleCep = useCallback(async (cep) => {
+    const handleCep = useCallback(async (_cep) => {
         try {
             setLoading(true);
             setSuccessed(false);
-            setConsultCep(null);
+            setConsultCep(null); 
 
-            cep = cep.replace('-', '');
-
-            await viaCepApi.get(`${cep}/json`).then((response) => {
+            await viaCepApi.get(`${_cep}/json`).then((response) => {
                 let _consultaCep = response.data as ConsultCep;
 
                 setConsultCep(response.data)
                 setTicket(prevState => ({
                     ...prevState,
-                    cep: cep,
+                    cep: _cep.replace('-', ''),
+                    cepMasked: _cep,
                     suburb: _consultaCep.bairro,
                     publicPlace: _consultaCep.logradouro
                 }))
@@ -150,16 +159,17 @@ export const TicketProvider: React.FC = ({ children }) => {
             value={{
                 loading,
                 successed,
-                ticket,
-                problems,
+                ticket, 
+                tickets,
                 selected,
                 coordinate,
                 consultCep,
+                problems,
                 handleNewTicket,
                 handleCep,
                 handleSetIdProblem,
-                handleSetCoordinate,
-                handlePlaceConfirm
+                handleSetCoordinate, 
+                ListMyTickets
             }}>
             {children}
         </TicketContext.Provider>
@@ -177,29 +187,31 @@ export function useTicket() {
         loading,
         successed,
         ticket,
-        problems,
+        tickets, 
         selected,
         coordinate,
         consultCep,
+        problems,
         handleNewTicket,
         handleCep,
         handleSetIdProblem,
-        handleSetCoordinate,
-        handlePlaceConfirm
+        handleSetCoordinate, 
+        ListMyTickets
     } = context;
 
     return {
         loading,
         successed,
-        ticket,
-        problems,
+        ticket, 
+        tickets,
         selected,
         coordinate,
         consultCep,
+        problems,
         handleNewTicket,
         handleCep,
         handleSetIdProblem,
-        handleSetCoordinate,
-        handlePlaceConfirm
+        handleSetCoordinate, 
+        ListMyTickets
     }
 };

@@ -50,9 +50,11 @@ const InputMask: React.FC<InputProps> = ({ name, icon, onChangeText, ...rest }) 
                 ref.value = '';
                 ref.clear();
             },
-            setValue(ref : any, value) {
-                ref.setNativeProps({ text: value });
-                ref.value = value;
+            setValue(ref : any, value: string) {
+                ref.getElement().setNativeProps({ text: value });
+                ref.value = value;  
+                setValue(value);
+                setRawValue(value); 
             }, 
         });
     }, [fieldName, rawValue, registerField]);
@@ -94,6 +96,7 @@ const InputMask: React.FC<InputProps> = ({ name, icon, onChangeText, ...rest }) 
                 defaultValue={defaultValue}
                 value={value}
                 onChangeText={handleOnChangeText}
+                placeholderTextColor={Constants.colorGray} 
                 ref={inputRef}
                 includeRawValueInChangeText
                 {...rest}

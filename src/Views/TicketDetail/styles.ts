@@ -13,26 +13,39 @@ export const Container = styled.View`
 
 `;
 
-export const Content = styled.View`
+export const ContentInfo = styled.View` 
   flex-direction: column;
+  width: ${screen.width}px;
   margin: 40px;
+  margin-top: -60px;
   border-radius: 5px;
   padding: 10px;
   align-items: center;
   justify-content: center;
+  background-color: ${Constants.colorBackground};
 
 `;
 
-export const ConternerItem = styled.TouchableOpacity`
-  width: ${screen.width - 20}px;
+export const ListContainer = styled.View`
+  flex: 1;
+  width: ${screen.width}px;
   flex-direction : column;
   background-color: ${Constants.colorBackground};
   align-self:  flex-start;
   justify-content: flex-start; 
-  height: ${screen.width * 0.5}px;   
-  border-radius: 5px;
-  margin: 10px;    
+  height: 100%;    
   box-shadow: 2px 5px 5px   rgba(0,0,0,0.1);
+
+`;
+ 
+
+export const ConternerItem = styled.TouchableOpacity` 
+  flex-direction : row;
+  width: 90%;
+  background-color: ${Constants.colorBackground};
+  align-self: center ;
+  justify-content: space-evenly;    
+  padding: 10px;
 `;
 
 export const Separator = styled.View`
@@ -63,8 +76,8 @@ export const ItemDetailStatus = styled.View<PropsStatus>`
   ${({ colorStatus }) => colorStatus != null && css`
     background-color: ${colorStatus}; 
     `};
-  left: 10px;
-  top: 15px;
+  right: 10px;
+  top: 60px;
   border-radius: 10px;
   padding-right: 5px;
   padding-left: 5px;
@@ -100,7 +113,7 @@ export const ButtonRoundAdd = styled.TouchableOpacity`
   position: absolute ;
   bottom: 30px;
   right: 20px;
-  background: ${Constants.colorPrimary};
+  background: ${Constants.colorSecundary};
   margin: 10px 0px;
   padding: 20px;
   border-radius: 15px;  
