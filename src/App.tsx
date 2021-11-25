@@ -6,10 +6,11 @@ import { AuthProvider } from './Context/Auth';
 import { TicketProvider } from './Context/Ticket';
 
 import Routes from './Routers';
+import Constants from './Constants';
 
 const App: React.FC = () => (
   <NavigationContainer>
-    <StatusBar barStyle="dark-content" />
+    <StatusBar barStyle="dark-content"  translucent={true} backgroundColor='transparent'/>
     <View style={{ flex: 1, backgroundColor: '#fff' }}>
       <AuthProvider>
         <TicketProvider>

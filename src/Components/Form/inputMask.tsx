@@ -90,13 +90,13 @@ const InputMask: React.FC<InputProps> = ({ name, icon, onChangeText, ...rest }) 
                 <Icon name={icon} size={20} color={Constants.colorGray} />
             </IconContainer>
             <TextInputMask
-                style={{ width: '100%' }}
+                style={{ width: '100%', color: Constants.colorGray }}
                 onFocus={handleInputFocus}
                 onBlur={handleInputBlur}
                 defaultValue={defaultValue}
                 value={value}
                 onChangeText={handleOnChangeText}
-                placeholderTextColor={Constants.colorGray} 
+                placeholderTextColor={Constants.colorGray}  
                 ref={inputRef}
                 includeRawValueInChangeText
                 {...rest}

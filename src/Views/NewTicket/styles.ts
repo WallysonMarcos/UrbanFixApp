@@ -39,13 +39,12 @@ export const ButtonSubmit = styled.TouchableOpacity`
   padding: 10px;
   border-radius: 5px;  
   align-items: center;
-  justify-content: center; 
-  
+  justify-content: center;   
 `;
 
 export const ButtonRoundAdd = styled.TouchableOpacity`
   position: absolute ;
-  bottom: 30px;
+  bottom: 10px;
   right: 20px;
   background: ${Constants.colorPrimary};
   margin: 10px 0px;

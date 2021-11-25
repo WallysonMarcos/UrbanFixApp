@@ -16,6 +16,7 @@ import { RootStackParamList } from '../../Routers/rootStackParam';
 import { useTicket } from '../../Context/Ticket';
 import { FlatList } from 'react-native-gesture-handler';
 import MapView, { Marker, PROVIDER_GOOGLE } from 'react-native-maps';
+import styled from 'styled-components/native';
 
 
 type Props = NativeStackScreenProps<RootStackParamList, 'Home'>;

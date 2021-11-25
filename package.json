@@ -11,6 +11,7 @@
   },
   "dependencies": {
     "@react-native-community/async-storage": "^1.12.1",
+    "@react-native-community/geolocation": "^2.0.2",
     "@react-native-community/masked-view": "^0.1.11",
     "@react-navigation/native": "^6.0.2",
     "@react-navigation/native-stack": "^6.1.0",
@@ -54,6 +55,8 @@
   },
   "jest": {
     "preset": "react-native",
-    "setupFiles": ["./path/to/jestSetupFile.js"]
+    "setupFiles": [
+      "./path/to/jestSetupFile.js"
+    ]
   }
 }

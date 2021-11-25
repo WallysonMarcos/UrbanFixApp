@@ -1,7 +1,8 @@
 import React, { useCallback, useEffect, useState } from 'react';
-import {  Alert, Dimensions } from 'react-native';
+import {  Alert, Dimensions, NavigatorIOS } from 'react-native';
 
 import MapView, { Marker, PROVIDER_GOOGLE  } from 'react-native-maps';
+import Geolocation from '@react-native-community/geolocation';
 
 import { Container,  ButtonRoundAdd, } from './styles';
 
@@ -19,7 +20,7 @@ const screen = Dimensions.get('window');
 const ASPECT_RATIO = screen.width / screen.height;
 const LATITUDE = -12.740919;
 const LONGITUDE = -60.132189;
-const LATITUDE_DELTA = 0.080;
+const LATITUDE_DELTA = 0.040;
 const LONGITUDE_DELTA = LATITUDE_DELTA * ASPECT_RATIO;
 
 const NewTicket = ({ navigation }: Props) => {
@@ -32,6 +33,31 @@ const NewTicket = ({ navigation }: Props) => {
         longitudeDelta: LONGITUDE_DELTA,
     });
     const [canNext, setCanNext] = useState(false);
+
+    useEffect(() => {
+        Geolocation.getCurrentPosition(
+            async ({ coords: { latitude, longitude } }) => {     
+              setInitRegion({ 
+                  latitude,
+                  longitude,
+                  latitudeDelta: 0.02,
+                  longitudeDelta: 0.02 
+              });
+              
+            }, //sucesso
+            () => {}, //erro
+            {
+              timeout: 2000,
+              enableHighAccuracy: true,
+              maximumAge: 1000
+            }
+          );
+    },[]);
+
+    useEffect(() => {
+        const {latitude, longitude } = initRegion;
+        handleSetCoordinate({ latitude, longitude } );
+    },[initRegion]);
 
     useEffect(() => { 
         if (ticket?.longitude != '' && ticket?.latitude != '' && ticket?.idProblem != 0) { 
@@ -52,12 +78,15 @@ const NewTicket = ({ navigation }: Props) => {
         <Container>
             <MapView style={{ flex: 1, width: '100%', height: '100%' }} 
                 provider={PROVIDER_GOOGLE} 
-                showsBuildings={false}
-                liteMode={true} 
+                showsBuildings={false} 
+                showsUserLocation={true} 
                 maxZoomLevel={50}  
                 zoomEnabled={true} 
+                showsMyLocationButton={false} 
+                showsCompass={false}
+                moveOnMarkerPress={true}
                 onPress={e => handleSetCoordinate(e.nativeEvent.coordinate)}
-                initialRegion={initRegion} >
+                region={initRegion} >
 
                 <Marker
                     title={"Solicitação"}

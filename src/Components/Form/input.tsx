@@ -87,6 +87,7 @@ const Input: React.FC<InputProps> = ({ name, icon, onChangeText, ...rest }) => {
                 <Icon name={icon} size={20} color={Constants.colorGray} style={{display: icon == "none" ? "none" : "flex"}}/> 
             </IconContainer>
             <InputContent
+                style={{color: Constants.colorGray}}
                 onFocus={handleInputFocus}
                 onBlur={handleInputBlur}
                 defaultValue={defaultValue}

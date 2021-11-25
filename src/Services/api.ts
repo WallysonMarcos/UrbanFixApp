@@ -2,8 +2,8 @@ import axios from 'axios';
 import { API_URL } from '@env';
  
 export const ilumineApi = axios.create({ 
-    baseURL:  'http://10.0.0.172:3000/', //API_URL,
-    //baseURL:  API_URL,
+    //baseURL:  'http://10.0.0.172:3000/', //API_URL,
+    baseURL:  API_URL,
     withCredentials: false,
     headers: {
       'Content-Type': 'application/json',

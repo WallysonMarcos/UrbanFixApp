@@ -27,7 +27,6 @@ const TicketDetail = ({  route, navigation }: Props) => {
     const [events, setEvents] = useState<Array<EventsTicket> | null>(null);
  
     useEffect(() => {
-        console.log(ticket)
         ListEventOfTicket();
     },[]);
 
@@ -56,7 +55,9 @@ const TicketDetail = ({  route, navigation }: Props) => {
                 showsBuildings={false}
                 liteMode={true} 
                 maxZoomLevel={50}  
-                zoomEnabled={true}  
+                zoomEnabled={false}  
+                showsMyLocationButton={false} 
+                showsCompass={false}
                 customMapStyle={Constants.mapStyle}
                 initialRegion={{
                     latitude: parseFloat(ticket.latitude) || -12.740919,

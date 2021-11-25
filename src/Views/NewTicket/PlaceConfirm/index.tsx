@@ -97,7 +97,7 @@ const PlaceConfirm = ({ navigation }: Props) => {
                         onChange={(e) => eventConsultCep(e.nativeEvent)} /> 
                     <Input icon="chevron-right" placeholderTextColor={Constants.colorGray}  placeholder="Rua" name="publicPlace" />
                     <Input icon="chevron-right" placeholderTextColor={Constants.colorGray}  placeholder="Bairro" name="suburb" />
-                    <Input icon="chevron-right" placeholderTextColor={Constants.colorGray}  placeholder="Número" name="number" />
+                    <Input icon="chevron-right" placeholderTextColor={Constants.colorGray}  placeholder="Número" name="number" keyboardType="number-pad" />
                     <Input icon="chevron-right" placeholderTextColor={Constants.colorGray}  placeholder="Complemento" name="complements" />
                     <Input icon="chevron-right" placeholderTextColor={Constants.colorGray}  placeholder="Observação" name="note" />
                 </Form>

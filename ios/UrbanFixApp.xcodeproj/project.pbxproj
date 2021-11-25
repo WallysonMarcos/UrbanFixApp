@@ -11,9 +11,9 @@
 		13B07FBC1A68108700A75B9A /* AppDelegate.m in Sources */ = {isa = PBXBuildFile; fileRef = 13B07FB01A68108700A75B9A /* AppDelegate.m */; };
 		13B07FBF1A68108700A75B9A /* Images.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 13B07FB51A68108700A75B9A /* Images.xcassets */; };
 		13B07FC11A68108700A75B9A /* main.m in Sources */ = {isa = PBXBuildFile; fileRef = 13B07FB71A68108700A75B9A /* main.m */; };
-		452A835CBBAB957C4F5F6F8A /* libPods-UrbanFixApp-UrbanFixAppTests.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 33C66E2D18BC9ACC319B22B1 /* libPods-UrbanFixApp-UrbanFixAppTests.a */; };
+		183E1A0AD952A3709A1F2D7D /* libPods-UrbanFixApp-UrbanFixAppTests.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 09DBDB760668C2805285E069 /* libPods-UrbanFixApp-UrbanFixAppTests.a */; };
+		44717938A7B2CB73356E9004 /* libPods-UrbanFixApp.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 27D1A396B08D2A42B0563189 /* libPods-UrbanFixApp.a */; };
 		81AB9BB82411601600AC10FF /* LaunchScreen.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 81AB9BB72411601600AC10FF /* LaunchScreen.storyboard */; };
-		FF0FB2F6201C456BA5122F48 /* libPods-UrbanFixApp.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 58C9FAA53A3185E9FF1D4705 /* libPods-UrbanFixApp.a */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -30,20 +30,39 @@
 		00E356EE1AD99517003FC87E /* UrbanFixAppTests.xctest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = UrbanFixAppTests.xctest; sourceTree = BUILT_PRODUCTS_DIR; };
 		00E356F11AD99517003FC87E /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
 		00E356F21AD99517003FC87E /* UrbanFixAppTests.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = UrbanFixAppTests.m; sourceTree = "<group>"; };
+		09DBDB760668C2805285E069 /* libPods-UrbanFixApp-UrbanFixAppTests.a */ = {isa = PBXFileReference; explicitFileType = archive.ar; includeInIndex = 0; path = "libPods-UrbanFixApp-UrbanFixAppTests.a"; sourceTree = BUILT_PRODUCTS_DIR; };
 		13B07F961A680F5B00A75B9A /* UrbanFixApp.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = UrbanFixApp.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		13B07FAF1A68108700A75B9A /* AppDelegate.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = AppDelegate.h; path = UrbanFixApp/AppDelegate.h; sourceTree = "<group>"; };
 		13B07FB01A68108700A75B9A /* AppDelegate.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = AppDelegate.m; path = UrbanFixApp/AppDelegate.m; sourceTree = "<group>"; };
 		13B07FB51A68108700A75B9A /* Images.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; name = Images.xcassets; path = UrbanFixApp/Images.xcassets; sourceTree = "<group>"; };
 		13B07FB61A68108700A75B9A /* Info.plist */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.plist.xml; name = Info.plist; path = UrbanFixApp/Info.plist; sourceTree = "<group>"; };
 		13B07FB71A68108700A75B9A /* main.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = main.m; path = UrbanFixApp/main.m; sourceTree = "<group>"; };
-		33C66E2D18BC9ACC319B22B1 /* libPods-UrbanFixApp-UrbanFixAppTests.a */ = {isa = PBXFileReference; explicitFileType = archive.ar; includeInIndex = 0; path = "libPods-UrbanFixApp-UrbanFixAppTests.a"; sourceTree = BUILT_PRODUCTS_DIR; };
-		58C9FAA53A3185E9FF1D4705 /* libPods-UrbanFixApp.a */ = {isa = PBXFileReference; explicitFileType = archive.ar; includeInIndex = 0; path = "libPods-UrbanFixApp.a"; sourceTree = BUILT_PRODUCTS_DIR; };
+		144BB317D9CC8D53119643A4 /* Pods-UrbanFixApp-UrbanFixAppTests.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-UrbanFixApp-UrbanFixAppTests.release.xcconfig"; path = "Target Support Files/Pods-UrbanFixApp-UrbanFixAppTests/Pods-UrbanFixApp-UrbanFixAppTests.release.xcconfig"; sourceTree = "<group>"; };
+		1AFBC40438A5460092AC54CC /* Zocial.ttf */ = {isa = PBXFileReference; explicitFileType = undefined; fileEncoding = 9; includeInIndex = 0; lastKnownFileType = unknown; name = Zocial.ttf; path = "../node_modules/react-native-vector-icons/Fonts/Zocial.ttf"; sourceTree = "<group>"; };
+		208DB3643979420D9147F06B /* Entypo.ttf */ = {isa = PBXFileReference; explicitFileType = undefined; fileEncoding = 9; includeInIndex = 0; lastKnownFileType = unknown; name = Entypo.ttf; path = "../node_modules/react-native-vector-icons/Fonts/Entypo.ttf"; sourceTree = "<group>"; };
+		22E371CC6B344BA2AC226CB2 /* MaterialIcons.ttf */ = {isa = PBXFileReference; explicitFileType = undefined; fileEncoding = 9; includeInIndex = 0; lastKnownFileType = unknown; name = MaterialIcons.ttf; path = "../node_modules/react-native-vector-icons/Fonts/MaterialIcons.ttf"; sourceTree = "<group>"; };
+		27D1A396B08D2A42B0563189 /* libPods-UrbanFixApp.a */ = {isa = PBXFileReference; explicitFileType = archive.ar; includeInIndex = 0; path = "libPods-UrbanFixApp.a"; sourceTree = BUILT_PRODUCTS_DIR; };
+		40EF8CC53A134C55AC9B89FC /* FontAwesome.ttf */ = {isa = PBXFileReference; explicitFileType = undefined; fileEncoding = 9; includeInIndex = 0; lastKnownFileType = unknown; name = FontAwesome.ttf; path = "../node_modules/react-native-vector-icons/Fonts/FontAwesome.ttf"; sourceTree = "<group>"; };
+		4B1D0DAB664A42E2A9FD74F2 /* Fontisto.ttf */ = {isa = PBXFileReference; explicitFileType = undefined; fileEncoding = 9; includeInIndex = 0; lastKnownFileType = unknown; name = Fontisto.ttf; path = "../node_modules/react-native-vector-icons/Fonts/Fontisto.ttf"; sourceTree = "<group>"; };
+		616D534D072848A4AAD63170 /* FontAwesome5_Brands.ttf */ = {isa = PBXFileReference; explicitFileType = undefined; fileEncoding = 9; includeInIndex = 0; lastKnownFileType = unknown; name = FontAwesome5_Brands.ttf; path = "../node_modules/react-native-vector-icons/Fonts/FontAwesome5_Brands.ttf"; sourceTree = "<group>"; };
+		6C8E38BE56E6404B943FE1FD /* AntDesign.ttf */ = {isa = PBXFileReference; explicitFileType = undefined; fileEncoding = 9; includeInIndex = 0; lastKnownFileType = unknown; name = AntDesign.ttf; path = "../node_modules/react-native-vector-icons/Fonts/AntDesign.ttf"; sourceTree = "<group>"; };
+		74FF08D8FE7F451689E38F5D /* EvilIcons.ttf */ = {isa = PBXFileReference; explicitFileType = undefined; fileEncoding = 9; includeInIndex = 0; lastKnownFileType = unknown; name = EvilIcons.ttf; path = "../node_modules/react-native-vector-icons/Fonts/EvilIcons.ttf"; sourceTree = "<group>"; };
+		7FB45ED9A4D140B8ADC30E08 /* FontAwesome5_Regular.ttf */ = {isa = PBXFileReference; explicitFileType = undefined; fileEncoding = 9; includeInIndex = 0; lastKnownFileType = unknown; name = FontAwesome5_Regular.ttf; path = "../node_modules/react-native-vector-icons/Fonts/FontAwesome5_Regular.ttf"; sourceTree = "<group>"; };
 		81AB9BB72411601600AC10FF /* LaunchScreen.storyboard */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.storyboard; name = LaunchScreen.storyboard; path = UrbanFixApp/LaunchScreen.storyboard; sourceTree = "<group>"; };
-		B1AA711BBA117523E63B4905 /* Pods-UrbanFixApp.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-UrbanFixApp.debug.xcconfig"; path = "Target Support Files/Pods-UrbanFixApp/Pods-UrbanFixApp.debug.xcconfig"; sourceTree = "<group>"; };
-		B9B92C4B8A8E689A873FAFFF /* Pods-UrbanFixApp.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-UrbanFixApp.release.xcconfig"; path = "Target Support Files/Pods-UrbanFixApp/Pods-UrbanFixApp.release.xcconfig"; sourceTree = "<group>"; };
-		C3D30EC6D26172CB3BA53AD1 /* Pods-UrbanFixApp-UrbanFixAppTests.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-UrbanFixApp-UrbanFixAppTests.release.xcconfig"; path = "Target Support Files/Pods-UrbanFixApp-UrbanFixAppTests/Pods-UrbanFixApp-UrbanFixAppTests.release.xcconfig"; sourceTree = "<group>"; };
-		DE4DFA75A539CBD412FCF8C0 /* Pods-UrbanFixApp-UrbanFixAppTests.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-UrbanFixApp-UrbanFixAppTests.debug.xcconfig"; path = "Target Support Files/Pods-UrbanFixApp-UrbanFixAppTests/Pods-UrbanFixApp-UrbanFixAppTests.debug.xcconfig"; sourceTree = "<group>"; };
+		98FDAB9BEC9F441F9891956B /* FontAwesome5_Solid.ttf */ = {isa = PBXFileReference; explicitFileType = undefined; fileEncoding = 9; includeInIndex = 0; lastKnownFileType = unknown; name = FontAwesome5_Solid.ttf; path = "../node_modules/react-native-vector-icons/Fonts/FontAwesome5_Solid.ttf"; sourceTree = "<group>"; };
+		A186E5DB08E745B0BBD605FC /* Foundation.ttf */ = {isa = PBXFileReference; explicitFileType = undefined; fileEncoding = 9; includeInIndex = 0; lastKnownFileType = unknown; name = Foundation.ttf; path = "../node_modules/react-native-vector-icons/Fonts/Foundation.ttf"; sourceTree = "<group>"; };
+		A417AA679B80C13C476F402B /* Pods-UrbanFixApp-UrbanFixAppTests.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-UrbanFixApp-UrbanFixAppTests.debug.xcconfig"; path = "Target Support Files/Pods-UrbanFixApp-UrbanFixAppTests/Pods-UrbanFixApp-UrbanFixAppTests.debug.xcconfig"; sourceTree = "<group>"; };
+		B75AC584509040EF97A409BF /* Ionicons.ttf */ = {isa = PBXFileReference; explicitFileType = undefined; fileEncoding = 9; includeInIndex = 0; lastKnownFileType = unknown; name = Ionicons.ttf; path = "../node_modules/react-native-vector-icons/Fonts/Ionicons.ttf"; sourceTree = "<group>"; };
+		C123B5A313D5E6C058638FAC /* Pods-UrbanFixApp.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-UrbanFixApp.release.xcconfig"; path = "Target Support Files/Pods-UrbanFixApp/Pods-UrbanFixApp.release.xcconfig"; sourceTree = "<group>"; };
+		CE8CC9932964D83C9832DDBC /* Pods-UrbanFixApp.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-UrbanFixApp.debug.xcconfig"; path = "Target Support Files/Pods-UrbanFixApp/Pods-UrbanFixApp.debug.xcconfig"; sourceTree = "<group>"; };
+		D110D2A775FB4055B99853BE /* SimpleLineIcons.ttf */ = {isa = PBXFileReference; explicitFileType = undefined; fileEncoding = 9; includeInIndex = 0; lastKnownFileType = unknown; name = SimpleLineIcons.ttf; path = "../node_modules/react-native-vector-icons/Fonts/SimpleLineIcons.ttf"; sourceTree = "<group>"; };
+		D4DBEA3D03BC4DA2B878F76D /* MaterialCommunityIcons.ttf */ = {isa = PBXFileReference; explicitFileType = undefined; fileEncoding = 9; includeInIndex = 0; lastKnownFileType = unknown; name = MaterialCommunityIcons.ttf; path = "../node_modules/react-native-vector-icons/Fonts/MaterialCommunityIcons.ttf"; sourceTree = "<group>"; };
+		DB9B9593A5DB4F9BA11D6B6B /* Octicons.ttf */ = {isa = PBXFileReference; explicitFileType = undefined; fileEncoding = 9; includeInIndex = 0; lastKnownFileType = unknown; name = Octicons.ttf; path = "../node_modules/react-native-vector-icons/Fonts/Octicons.ttf"; sourceTree = "<group>"; };
 		ED297162215061F000B7C4FE /* JavaScriptCore.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = JavaScriptCore.framework; path = System/Library/Frameworks/JavaScriptCore.framework; sourceTree = SDKROOT; };
+		EDD67ED728AB47B5806EF8F0 /* Feather.ttf */ = {isa = PBXFileReference; explicitFileType = undefined; fileEncoding = 9; includeInIndex = 0; lastKnownFileType = unknown; name = Feather.ttf; path = "../node_modules/react-native-vector-icons/Fonts/Feather.ttf"; sourceTree = "<group>"; };
+		F1071F19274D5AFE003FD7C6 /* FontAwesome.ttf */ = {isa = PBXFileReference; lastKnownFileType = file; name = FontAwesome.ttf; path = "../node_modules/react-native-vector-icons/Fonts/FontAwesome.ttf"; sourceTree = "<group>"; };
+		F1071F1A274D5AFE003FD7C6 /* Feather.ttf */ = {isa = PBXFileReference; lastKnownFileType = file; name = Feather.ttf; path = "../node_modules/react-native-vector-icons/Fonts/Feather.ttf"; sourceTree = "<group>"; };
+		F1071F1B274D5AFE003FD7C6 /* MaterialIcons.ttf */ = {isa = PBXFileReference; lastKnownFileType = file; name = MaterialIcons.ttf; path = "../node_modules/react-native-vector-icons/Fonts/MaterialIcons.ttf"; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -51,7 +70,7 @@
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				452A835CBBAB957C4F5F6F8A /* libPods-UrbanFixApp-UrbanFixAppTests.a in Frameworks */,
+				183E1A0AD952A3709A1F2D7D /* libPods-UrbanFixApp-UrbanFixAppTests.a in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -59,7 +78,7 @@
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				FF0FB2F6201C456BA5122F48 /* libPods-UrbanFixApp.a in Frameworks */,
+				44717938A7B2CB73356E9004 /* libPods-UrbanFixApp.a in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -100,8 +119,8 @@
 			isa = PBXGroup;
 			children = (
 				ED297162215061F000B7C4FE /* JavaScriptCore.framework */,
-				58C9FAA53A3185E9FF1D4705 /* libPods-UrbanFixApp.a */,
-				33C66E2D18BC9ACC319B22B1 /* libPods-UrbanFixApp-UrbanFixAppTests.a */,
+				27D1A396B08D2A42B0563189 /* libPods-UrbanFixApp.a */,
+				09DBDB760668C2805285E069 /* libPods-UrbanFixApp-UrbanFixAppTests.a */,
 			);
 			name = Frameworks;
 			sourceTree = "<group>";
@@ -109,10 +128,10 @@
 		35C254ADC473E9ADAEEF8FE4 /* Pods */ = {
 			isa = PBXGroup;
 			children = (
-				B1AA711BBA117523E63B4905 /* Pods-UrbanFixApp.debug.xcconfig */,
-				B9B92C4B8A8E689A873FAFFF /* Pods-UrbanFixApp.release.xcconfig */,
-				DE4DFA75A539CBD412FCF8C0 /* Pods-UrbanFixApp-UrbanFixAppTests.debug.xcconfig */,
-				C3D30EC6D26172CB3BA53AD1 /* Pods-UrbanFixApp-UrbanFixAppTests.release.xcconfig */,
+				CE8CC9932964D83C9832DDBC /* Pods-UrbanFixApp.debug.xcconfig */,
+				C123B5A313D5E6C058638FAC /* Pods-UrbanFixApp.release.xcconfig */,
+				A417AA679B80C13C476F402B /* Pods-UrbanFixApp-UrbanFixAppTests.debug.xcconfig */,
+				144BB317D9CC8D53119643A4 /* Pods-UrbanFixApp-UrbanFixAppTests.release.xcconfig */,
 			);
 			path = Pods;
 			sourceTree = "<group>";
@@ -127,6 +146,10 @@
 		83CBB9F61A601CBA00E9B192 = {
 			isa = PBXGroup;
 			children = (
+				F1071F1F274D5F18003FD7C6 /* Fonts */,
+				F1071F1A274D5AFE003FD7C6 /* Feather.ttf */,
+				F1071F19274D5AFE003FD7C6 /* FontAwesome.ttf */,
+				F1071F1B274D5AFE003FD7C6 /* MaterialIcons.ttf */,
 				13B07FAE1A68108700A75B9A /* UrbanFixApp */,
 				832341AE1AAA6A7D00B99B32 /* Libraries */,
 				00E356EF1AD99517003FC87E /* UrbanFixAppTests */,
@@ -152,8 +175,31 @@
 		A155C2FC818B4336A5D1BE33 /* Resources */ = {
 			isa = PBXGroup;
 			children = (
+				6C8E38BE56E6404B943FE1FD /* AntDesign.ttf */,
+				208DB3643979420D9147F06B /* Entypo.ttf */,
+				74FF08D8FE7F451689E38F5D /* EvilIcons.ttf */,
+				EDD67ED728AB47B5806EF8F0 /* Feather.ttf */,
+				40EF8CC53A134C55AC9B89FC /* FontAwesome.ttf */,
+				616D534D072848A4AAD63170 /* FontAwesome5_Brands.ttf */,
+				7FB45ED9A4D140B8ADC30E08 /* FontAwesome5_Regular.ttf */,
+				98FDAB9BEC9F441F9891956B /* FontAwesome5_Solid.ttf */,
+				4B1D0DAB664A42E2A9FD74F2 /* Fontisto.ttf */,
+				A186E5DB08E745B0BBD605FC /* Foundation.ttf */,
+				B75AC584509040EF97A409BF /* Ionicons.ttf */,
+				D4DBEA3D03BC4DA2B878F76D /* MaterialCommunityIcons.ttf */,
+				22E371CC6B344BA2AC226CB2 /* MaterialIcons.ttf */,
+				DB9B9593A5DB4F9BA11D6B6B /* Octicons.ttf */,
+				D110D2A775FB4055B99853BE /* SimpleLineIcons.ttf */,
+				1AFBC40438A5460092AC54CC /* Zocial.ttf */,
 			);
 			name = Resources;
+			sourceTree = "<group>";
+		};
+		F1071F1F274D5F18003FD7C6 /* Fonts */ = {
+			isa = PBXGroup;
+			children = (
+			);
+			path = Fonts;
 			sourceTree = "<group>";
 		};
 /* End PBXGroup section */
@@ -163,11 +209,11 @@
 			isa = PBXNativeTarget;
 			buildConfigurationList = 00E357021AD99517003FC87E /* Build configuration list for PBXNativeTarget "UrbanFixAppTests" */;
 			buildPhases = (
-				3F4311B476955926342816FF /* [CP] Check Pods Manifest.lock */,
+				E71A520ACDC0A0F000DC3AAE /* [CP] Check Pods Manifest.lock */,
 				00E356EA1AD99517003FC87E /* Sources */,
 				00E356EB1AD99517003FC87E /* Frameworks */,
 				00E356EC1AD99517003FC87E /* Resources */,
-				23C42DA02DF7F56FEA594A12 /* [CP] Copy Pods Resources */,
+				ABF48809B393CDAC8FA69063 /* [CP] Copy Pods Resources */,
 			);
 			buildRules = (
 			);
@@ -183,13 +229,13 @@
 			isa = PBXNativeTarget;
 			buildConfigurationList = 13B07F931A680F5B00A75B9A /* Build configuration list for PBXNativeTarget "UrbanFixApp" */;
 			buildPhases = (
-				9D37DA64981301BBFA893F63 /* [CP] Check Pods Manifest.lock */,
+				31FD0CE51DDC62EE00F49EB3 /* [CP] Check Pods Manifest.lock */,
 				FD10A7F022414F080027D42C /* Start Packager */,
 				13B07F871A680F5B00A75B9A /* Sources */,
 				13B07F8C1A680F5B00A75B9A /* Frameworks */,
 				13B07F8E1A680F5B00A75B9A /* Resources */,
 				00DD1BFF1BD5951E006B06BC /* Bundle React Native code and images */,
-				799BF8DBF74C67145F22D02F /* [CP] Copy Pods Resources */,
+				EA0F1CFF0D5CAD0144A42315 /* [CP] Copy Pods Resources */,
 			);
 			buildRules = (
 			);
@@ -270,7 +316,29 @@
 			shellPath = /bin/sh;
 			shellScript = "set -e\n\nexport NODE_BINARY=node\n../node_modules/react-native/scripts/react-native-xcode.sh\n";
 		};
-		23C42DA02DF7F56FEA594A12 /* [CP] Copy Pods Resources */ = {
+		31FD0CE51DDC62EE00F49EB3 /* [CP] Check Pods Manifest.lock */ = {
+			isa = PBXShellScriptBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			inputFileListPaths = (
+			);
+			inputPaths = (
+				"${PODS_PODFILE_DIR_PATH}/Podfile.lock",
+				"${PODS_ROOT}/Manifest.lock",
+			);
+			name = "[CP] Check Pods Manifest.lock";
+			outputFileListPaths = (
+			);
+			outputPaths = (
+				"$(DERIVED_FILE_DIR)/Pods-UrbanFixApp-checkManifestLockResult.txt",
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+			shellPath = /bin/sh;
+			shellScript = "diff \"${PODS_PODFILE_DIR_PATH}/Podfile.lock\" \"${PODS_ROOT}/Manifest.lock\" > /dev/null\nif [ $? != 0 ] ; then\n    # print error to STDERR\n    echo \"error: The sandbox is not in sync with the Podfile.lock. Run 'pod install' or update your CocoaPods installation.\" >&2\n    exit 1\nfi\n# This output is used by Xcode 'outputs' to avoid re-running this script phase.\necho \"SUCCESS\" > \"${SCRIPT_OUTPUT_FILE_0}\"\n";
+			showEnvVarsInLog = 0;
+		};
+		ABF48809B393CDAC8FA69063 /* [CP] Copy Pods Resources */ = {
 			isa = PBXShellScriptBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
@@ -287,7 +355,7 @@
 			shellScript = "\"${PODS_ROOT}/Target Support Files/Pods-UrbanFixApp-UrbanFixAppTests/Pods-UrbanFixApp-UrbanFixAppTests-resources.sh\"\n";
 			showEnvVarsInLog = 0;
 		};
-		3F4311B476955926342816FF /* [CP] Check Pods Manifest.lock */ = {
+		E71A520ACDC0A0F000DC3AAE /* [CP] Check Pods Manifest.lock */ = {
 			isa = PBXShellScriptBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
@@ -309,7 +377,7 @@
 			shellScript = "diff \"${PODS_PODFILE_DIR_PATH}/Podfile.lock\" \"${PODS_ROOT}/Manifest.lock\" > /dev/null\nif [ $? != 0 ] ; then\n    # print error to STDERR\n    echo \"error: The sandbox is not in sync with the Podfile.lock. Run 'pod install' or update your CocoaPods installation.\" >&2\n    exit 1\nfi\n# This output is used by Xcode 'outputs' to avoid re-running this script phase.\necho \"SUCCESS\" > \"${SCRIPT_OUTPUT_FILE_0}\"\n";
 			showEnvVarsInLog = 0;
 		};
-		799BF8DBF74C67145F22D02F /* [CP] Copy Pods Resources */ = {
+		EA0F1CFF0D5CAD0144A42315 /* [CP] Copy Pods Resources */ = {
 			isa = PBXShellScriptBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
@@ -324,28 +392,6 @@
 			runOnlyForDeploymentPostprocessing = 0;
 			shellPath = /bin/sh;
 			shellScript = "\"${PODS_ROOT}/Target Support Files/Pods-UrbanFixApp/Pods-UrbanFixApp-resources.sh\"\n";
-			showEnvVarsInLog = 0;
-		};
-		9D37DA64981301BBFA893F63 /* [CP] Check Pods Manifest.lock */ = {
-			isa = PBXShellScriptBuildPhase;
-			buildActionMask = 2147483647;
-			files = (
-			);
-			inputFileListPaths = (
-			);
-			inputPaths = (
-				"${PODS_PODFILE_DIR_PATH}/Podfile.lock",
-				"${PODS_ROOT}/Manifest.lock",
-			);
-			name = "[CP] Check Pods Manifest.lock";
-			outputFileListPaths = (
-			);
-			outputPaths = (
-				"$(DERIVED_FILE_DIR)/Pods-UrbanFixApp-checkManifestLockResult.txt",
-			);
-			runOnlyForDeploymentPostprocessing = 0;
-			shellPath = /bin/sh;
-			shellScript = "diff \"${PODS_PODFILE_DIR_PATH}/Podfile.lock\" \"${PODS_ROOT}/Manifest.lock\" > /dev/null\nif [ $? != 0 ] ; then\n    # print error to STDERR\n    echo \"error: The sandbox is not in sync with the Podfile.lock. Run 'pod install' or update your CocoaPods installation.\" >&2\n    exit 1\nfi\n# This output is used by Xcode 'outputs' to avoid re-running this script phase.\necho \"SUCCESS\" > \"${SCRIPT_OUTPUT_FILE_0}\"\n";
 			showEnvVarsInLog = 0;
 		};
 		FD10A7F022414F080027D42C /* Start Packager */ = {
@@ -400,7 +446,7 @@
 /* Begin XCBuildConfiguration section */
 		00E356F61AD99517003FC87E /* Debug */ = {
 			isa = XCBuildConfiguration;
-			baseConfigurationReference = DE4DFA75A539CBD412FCF8C0 /* Pods-UrbanFixApp-UrbanFixAppTests.debug.xcconfig */;
+			baseConfigurationReference = A417AA679B80C13C476F402B /* Pods-UrbanFixApp-UrbanFixAppTests.debug.xcconfig */;
 			buildSettings = {
 				ALWAYS_EMBED_SWIFT_STANDARD_LIBRARIES = YES;
 				BUNDLE_LOADER = "$(TEST_HOST)";
@@ -428,7 +474,7 @@
 		};
 		00E356F71AD99517003FC87E /* Release */ = {
 			isa = XCBuildConfiguration;
-			baseConfigurationReference = C3D30EC6D26172CB3BA53AD1 /* Pods-UrbanFixApp-UrbanFixAppTests.release.xcconfig */;
+			baseConfigurationReference = 144BB317D9CC8D53119643A4 /* Pods-UrbanFixApp-UrbanFixAppTests.release.xcconfig */;
 			buildSettings = {
 				ALWAYS_EMBED_SWIFT_STANDARD_LIBRARIES = YES;
 				BUNDLE_LOADER = "$(TEST_HOST)";
@@ -453,7 +499,7 @@
 		};
 		13B07F941A680F5B00A75B9A /* Debug */ = {
 			isa = XCBuildConfiguration;
-			baseConfigurationReference = B1AA711BBA117523E63B4905 /* Pods-UrbanFixApp.debug.xcconfig */;
+			baseConfigurationReference = CE8CC9932964D83C9832DDBC /* Pods-UrbanFixApp.debug.xcconfig */;
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				CLANG_ENABLE_MODULES = YES;
@@ -480,7 +526,7 @@
 		};
 		13B07F951A680F5B00A75B9A /* Release */ = {
 			isa = XCBuildConfiguration;
-			baseConfigurationReference = B9B92C4B8A8E689A873FAFFF /* Pods-UrbanFixApp.release.xcconfig */;
+			baseConfigurationReference = C123B5A313D5E6C058638FAC /* Pods-UrbanFixApp.release.xcconfig */;
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				CLANG_ENABLE_MODULES = YES;

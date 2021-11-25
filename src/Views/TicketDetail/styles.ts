@@ -111,7 +111,7 @@ export const ButtonSubmit = styled.TouchableOpacity`
 
 export const ButtonRoundAdd = styled.TouchableOpacity`
   position: absolute ;
-  bottom: 30px;
+  bottom: 10px;
   right: 20px;
   background: ${Constants.colorSecundary};
   margin: 10px 0px;

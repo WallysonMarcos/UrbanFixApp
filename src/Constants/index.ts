@@ -15,7 +15,7 @@ export default {
   colorSecundary: '#57afdf',
   colorLigth: '#e5e5e5',
   colorWarning: '#D5A419',
-  colorGray: 'gray',
+  colorGray: 'gray', 
   colorBackground: '#f5f5f5',
   fontLarger: normalize(20),
   fontNormal: normalize(16),
