@@ -1,6 +1,7 @@
 import React, { Component } from 'react';
 import { createNativeStackNavigator } from '@react-navigation/native-stack';
 
+import IntroApp from '../Views/Intro';
 import Home from '../Views/Home';
 import NewTicket from '../Views/NewTicket';
 import TicketDetail from '../Views/TicketDetail';
@@ -12,18 +13,26 @@ import Icon from 'react-native-vector-icons/Feather';
 import { useAuth } from '../Context/Auth';
 import Constants from '../Constants';
 import { Alert, Button, Touchable, TouchableOpacityBase, View } from 'react-native';
-import styled from 'styled-components/native';
+
 
 const AppStack = createNativeStackNavigator();
 
-const AppRoutes: React.FC = () => {
+type Props = {
+  showIntroWelcome: boolean;
+}
+
+const AppRoutes: React.FC<Props> = ({showIntroWelcome})  => {
 
   const { handleSignOut } = useAuth();
 
   return (
     <AppStack.Navigator
-      initialRouteName={"Home"} 
+    initialRouteName={ showIntroWelcome ? "IntroApp" : "Home" }
     >
+      <AppStack.Screen name={"IntroApp"} component={IntroApp} 
+        options={{
+          headerShown: false
+        }}/>
       <AppStack.Screen name="Home" component={Home} 
         
         options={{ 

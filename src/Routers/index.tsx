@@ -11,7 +11,7 @@ const Routes: React.FC = () => {
   const { authorized, initializing, showIntro } = useAuth();
   
   if(!initializing){
-    return  authorized ? <AppRoutes/>  : <AuthRoutes showIntroWelcome={showIntro} />;
+    return  authorized ? <AppRoutes showIntroWelcome={showIntro} />  : <AuthRoutes />;
   }
   else {
     return  < ActivityIndicator/>;

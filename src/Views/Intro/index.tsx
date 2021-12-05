@@ -91,7 +91,7 @@ const IntroWelcome = ({ navigation }: Props) => {
       doneLabel={'OK'}
       onDone={() => {
         handleDoneIntro();
-        navigation.navigate('SignIn')
+        navigation.navigate('Home')
       }}
       data={slides}
     />
