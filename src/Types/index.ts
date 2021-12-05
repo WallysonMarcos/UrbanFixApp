@@ -30,14 +30,17 @@ export  interface ConfirmNumber {
 
 export interface AuthContextData {
     authorized: boolean;
+    initializing: boolean;
     loading: boolean;
     confirmCell: boolean;
     successed: boolean;
+    showIntro: boolean;
     user: UserContext | null;
     handleSignIn(credentials: AuthCredentials, onConfirmCell: Function): Promise<void>,
     handleSignOut(): Promise<void>;
-    handleSignUp(data: SignInData, onSuccess: Function): Promise<void>,
-    handleConfirm(data: ConfirmData, onSuccess: Function): Promise<void>
+    handleSignUp(data: SignInData, onSuccess: Function): Promise<void>;
+    handleConfirm(data: ConfirmData, onSuccess: Function): Promise<void>;
+    handleDoneIntro(): void;
 }
 
 export interface ValidationErrorData {
@@ -121,7 +124,7 @@ export interface TicketContextData {
     loading: boolean;
     successed: boolean;
     ticket: TicketData ; 
-    tickets: Array<IListTickets> | null;
+    tickets: Array<IListTickets> ;
     selected: number;
     problems: Array<ProblemsData>;
     coordinate: LatLng;    

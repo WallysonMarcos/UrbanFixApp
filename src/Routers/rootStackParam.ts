@@ -8,4 +8,5 @@ export type RootStackParamList = {
     PlaceConfirm: undefined;
     TicketDetail: { ticket: IListTickets}
     Confirm: { cellNumber: string;};
+    IntroApp: undefined;
 };

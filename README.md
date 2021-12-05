@@ -12,11 +12,12 @@
 
 Technologies that I used to develop this mobile client
 
-- [ReactJS](https://reactjs.org/)
-- [TypeScript](https://www.typescriptlang.org/)
 - [React Native](https://reactnative.dev/)
+- [TypeScript](https://www.typescriptlang.org/)
+- [App Intro Slider](https://github.com/Jacse/react-native-app-intro-slider/)
 - [React Navigation](https://reactnavigation.org/)
 - [React Native Vector Icons](https://github.com/oblador/react-native-vector-icons)
+- [React Native Maps](https://github.com/react-native-maps/react-native-maps)
 - [UnForm](https://unform.dev/)
 - [Yup](https://github.com/jquense/yup)
 - [Styled Components](https://styled-components.com/)
@@ -37,7 +38,7 @@ $ git clone https://github.com/WallysonMarcos/UrbanFixApp.git && cd UrbanFixApp
 
 ```bash
 # Install the dependencies
-$ yarn 
+$ yarn install
 
 # If you are going to emulate with android, run this command
 # Be sure to have the emulator open
