@@ -1,5 +1,5 @@
-import React, { useEffect } from 'react';
-import { ActivityIndicator, Alert, RefreshControl, Text, View } from 'react-native';
+import React, { useEffect, useState } from 'react';
+import { ActivityIndicator, Alert, Image, RefreshControl, Text, View } from 'react-native';
 
 import {
     Container, ConternerItem, Separator, ButtonRoundAdd, ItemDetailStatus, ItemDetail
@@ -24,7 +24,7 @@ type Props = NativeStackScreenProps<RootStackParamList, 'Home'>;
 
 const Home = ({ navigation }: Props) => {
 
-    const { tickets, loading, ListMyTickets } = useTicket();
+    const { tickets,  loading, ListMyTickets } = useTicket();
 
     useEffect(() => {
         ListMyTickets();
@@ -35,6 +35,7 @@ const Home = ({ navigation }: Props) => {
             {loading && tickets?.length == 0 ?
                 <ActivityIndicator animating={loading} size="large" color={Constants.colorPrimary} />
                 :
+                tickets?.length  > 0 ?
                 <FlatList
                     initialNumToRender={10}
                     style={{ flex: 1, height: '100%', marginTop: 5 }}
@@ -92,6 +93,15 @@ const Home = ({ navigation }: Props) => {
                         </ConternerItem>
                     )}
                 />
+                :
+                <View style={{flexDirection: 'column', alignItems: 'center', justifyContent: 'space-evenly'}}>
+                    <Image source={require('../../assets/empty_street.png')} style={{height: '50%', resizeMode: 'center'} } />
+                        <Text numberOfLines={2} style={{ fontSize: Constants.fontNormal, textAlign: 'center', lineHeight: Constants.fontLarger + 5, color: '#777' }}>
+                            {
+                                "Para abrir sua primeira solicitação, \n Clique no botão ➕ abaixo. 👇🏻"
+                            }
+                        </Text>
+                </View>
             }
 
             <ButtonRoundAdd onPress={() => navigation.navigate('NewTicket')} >

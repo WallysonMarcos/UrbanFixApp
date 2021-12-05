@@ -12,32 +12,37 @@ const AuthContext = createContext<AuthContextData>({} as AuthContextData);
 
 const AUTH_STRING_TOKEN = '@URBANFIX:token';
 const AUTH_STRING_USER = '@URBANFIX:user';
+const AUTH_STRING_INTRO = '@URBANFIX:intro';
 
 //Provedor do Contexto para aplicação
 export const AuthProvider: React.FC = ({ children }) => {
 
+    const [initializing,setInitialized] = useState(true);
     const [loading, setLoading] = useState(false);
     const [successed, setSuccessed] = useState(false);
+    const [showIntro, setShowIntro] = useState(false);
     const [user, setUser] = useState<UserContext | null>(null);
     const [confirmCell, SetConfirmCell] = useState(false);
 
 
     //Hook que vai executar assim que o Provider for carregado
     useEffect(() => {
+
         async function initAuthProvider() {
-            try {
-                setLoading(true);
+            try { 
                 const token = await AsyncStorage.getItem(AUTH_STRING_TOKEN);
                 const user = await AsyncStorage.getItem(AUTH_STRING_USER);
-
-                if (user && token) {
-                    setUser(JSON.parse(user));
+                const intro = await AsyncStorage.getItem(AUTH_STRING_INTRO);
+                                
+                if (user && token ) {
+                    setUser(JSON.parse(user));                    
                     ilumineApi.defaults.headers.Authorization = `Bearer ${token}`;
                 }
+                setShowIntro(intro != null ||  intro ==="showed" ? false : true ) 
             } catch (err) {
                 setUser(null);
             } finally {
-                setLoading(false);
+                setInitialized(false);
             }
         }
         initAuthProvider();
@@ -54,8 +59,12 @@ export const AuthProvider: React.FC = ({ children }) => {
                 password
             }).catch(e => { 
                 if (e?.response?.data.statusCode === 401) {    
-                    _needConfirmCell = true;
-                    throw new Error(e?.response.data.message);                                      
+                    if( e?.response.data.message == "Unauthorized"){
+                        throw new Error("Usuário ou senha inválidos!");  
+                    }else{
+                        _needConfirmCell = true;
+                        throw new Error(e?.response.data.message); 
+                    }                                                             
                 } else {
                     throw new Error(e.message)
                 }
@@ -141,22 +150,30 @@ export const AuthProvider: React.FC = ({ children }) => {
         }
     }, []);
 
-    return (
+    const handleDoneIntro = () => {
+        AsyncStorage.setItem(AUTH_STRING_INTRO, "showed");
+    };
+ 
+    return ( 
         <AuthContext.Provider
             value={{
+                initializing,
                 authorized: !!user,
                 loading,
                 successed,
+                showIntro,
                 confirmCell,
                 user,
                 handleSignIn,
                 handleSignOut,
                 handleSignUp,
-                handleConfirm
+                handleConfirm,
+                handleDoneIntro
             }}>
             {children}
         </AuthContext.Provider>
-    );
+    ); 
+
 }
 
 
@@ -166,6 +183,6 @@ export function useAuth() {
     if (!context)
         throw new Error('useAuth must be used within an AuthProvider');
 
-    const { loading, authorized, confirmCell, successed, user, handleSignIn, handleSignOut, handleSignUp, handleConfirm } = context;
-    return { loading, authorized, confirmCell, successed, user, handleSignIn, handleSignOut, handleSignUp, handleConfirm};
+    const { initializing, loading, authorized, confirmCell, successed, showIntro, user, handleSignIn, handleSignOut, handleSignUp, handleConfirm, handleDoneIntro } = context;
+    return { initializing, loading, authorized, confirmCell, successed, showIntro, user, handleSignIn, handleSignOut, handleSignUp, handleConfirm, handleDoneIntro };
 }

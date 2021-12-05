@@ -27,7 +27,7 @@ export const TicketProvider: React.FC = ({ children }) => {
     const [loading, setLoading] = useState(false);
     const [successed, setSuccessed] = useState(false);
     const [selected, setSelected] = useState(0);
-    const [tickets, setTickets] = useState< Array<IListTickets> | null >(null);
+    const [tickets, setTickets] = useState< Array<IListTickets> >([]);
     const [ticket, setTicket] = useState<TicketData>(InitialContext);
     const [consultCep, setConsultCep] = useState<ConsultCep | null>(null);
     const [coordinate, setCoordinate] = useState<LatLng>({ latitude: -12.740919, longitude: -60.132189 })
