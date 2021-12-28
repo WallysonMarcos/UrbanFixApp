@@ -2,8 +2,7 @@ import React, { useRef, useState } from 'react';
 import { SubmitHandler, FormHandles } from '@unform/core';
 import { Form } from '@unform/mobile';
 import * as Yup from 'yup';
-import Icon from 'react-native-vector-icons/MaterialIcons';
-import { useNavigation } from '@react-navigation/native';
+import Icon from 'react-native-vector-icons/MaterialIcons'; 
 
 import { Container, Title, Content, ButtonSubmit, TextButton, RegisterText } from '../styles';
 
@@ -72,16 +71,16 @@ const SignUp  = ({ navigation }: Props) => {
 
         <Form ref={formRef} onSubmit={handleSubmit}>
 
-          <Input icon="face" placeholder="Nome" name="name" keyboardType={'default'} />
-          <Input icon="mood" placeholder="Sobrenome" name="lastName" keyboardType={'default'} />
+          <Input testID="name" icon="face" placeholder="Nome" name="name" keyboardType={'default'} />
+          <Input testID="lastname"  icon="mood" placeholder="Sobrenome" name="lastName" keyboardType={'default'} />
 
 
 
-          <Input icon="email" autoCapitalize={'none'} placeholder="E-mail" name="email" keyboardType={'url' } />
-          <InputMask type={'cel-phone'} icon="smartphone" placeholder="Telefone" name="cellNumber" keyboardType={'number-pad'} maxLength={15}/>
-          <Input icon="lock" placeholder="Senha" name="password" keyboardType={'number-pad'} secureTextEntry />
+          <Input testID="email" icon="email" autoCapitalize={'none'} placeholder="E-mail" name="email" keyboardType={'url' } />
+          <InputMask testID="cellNumber"  type={'cel-phone'} icon="smartphone" placeholder="Telefone" name="cellNumber" keyboardType={'number-pad'} maxLength={15}/>
+          <Input testID="password" icon="lock" placeholder="Senha" name="password" keyboardType={'number-pad'} secureTextEntry />
           
-          <ButtonSubmit onPress={() => formRef?.current?.submitForm()} >
+          <ButtonSubmit testID="REGISTAR" onPress={() => formRef?.current?.submitForm()} >
             <Icon name="input" size={20} color='white' />
             <TextButton allowFontScaling={false}  >REGISTAR</TextButton>
           </ButtonSubmit>

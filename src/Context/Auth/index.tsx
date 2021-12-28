@@ -8,7 +8,7 @@ import { AuthContextData, UserContext, AuthCredentials} from '../../Types';
 
 
 //Cria o contexto a ser utilizado no fluxo de autentição
-const AuthContext = createContext<AuthContextData>({} as AuthContextData);
+export const AuthContext = createContext<AuthContextData>({} as AuthContextData);
 
 const AUTH_STRING_TOKEN = '@URBANFIX:token';
 const AUTH_STRING_USER = '@URBANFIX:user';

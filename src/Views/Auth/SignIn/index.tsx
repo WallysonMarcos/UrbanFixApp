@@ -1,14 +1,11 @@
 import React, { useRef } from 'react';
-import { ActivityIndicator, Alert } from 'react-native';
-import { TouchableOpacity } from 'react-native-gesture-handler';
-
+import { ActivityIndicator, Alert, TouchableOpacity } from 'react-native';  
 import { SubmitHandler, FormHandles } from '@unform/core';
 import { Form } from '@unform/mobile';
 import * as Yup from 'yup';
 
-import Icon from 'react-native-vector-icons/MaterialIcons';
-import { useNavigation } from '@react-navigation/native';
-import { NativeStackNavigationProp } from '@react-navigation/native-stack';
+import Icon from 'react-native-vector-icons/MaterialIcons'; 
+import { NativeStackScreenProps } from '@react-navigation/native-stack';
 import { RootStackParamList } from '../../../Routers/rootStackParam';
 
 
@@ -19,8 +16,7 @@ import { useAuth } from '../../../Context/Auth';
 import Constants from '../../../Constants';
 
 
-
-type SignUpScreenProp = NativeStackNavigationProp<RootStackParamList, 'SignUp'>;
+ 
 
 
 interface SignInFormData {
@@ -30,15 +26,15 @@ interface SignInFormData {
 
 interface ValidationErrorData {
   [key: string]: any
-}
+} 
 
+type Props = NativeStackScreenProps<RootStackParamList, 'SignIn'>;
 
-
-const SignIn: React.FC = () => {
+ 
+const SignIn  = ({ navigation }: Props) => {
 
   const formRef = useRef<FormHandles>(null);
-  const { handleSignIn, loading, confirmCell } = useAuth();
-  const navigation = useNavigation<SignUpScreenProp>();
+  const { handleSignIn, loading, confirmCell } = useAuth(); 
 
   const handleSubmit: SubmitHandler<SignInFormData> = async (data) => {
  
@@ -82,16 +78,16 @@ const SignIn: React.FC = () => {
         <Title style={{marginBottom: 40}}>UrbanFix App</Title>
 
         <Form ref={formRef} onSubmit={handleSubmit}>
-          <InputMask type={'cel-phone'} icon="smartphone" placeholder="telefone" placeholderTextColor={Constants.colorGray} name="username" keyboardType={'number-pad'} />
-          <Input icon="lock" placeholder="senha" placeholderTextColor={Constants.colorGray} name="password" keyboardType={'number-pad'} secureTextEntry />
+          <InputMask  testID="username" type={'cel-phone'} icon="smartphone" placeholder="telefone" placeholderTextColor={Constants.colorGray} name="username" keyboardType={'number-pad'} />
+          <Input testID="password" icon="lock" placeholder="senha" placeholderTextColor={Constants.colorGray} name="password" keyboardType={'number-pad'} secureTextEntry />
 
-          <ButtonSubmit onPress={() => formRef?.current?.submitForm()} >
+          <ButtonSubmit testID="submitForm" onPress={() => formRef?.current?.submitForm()} >
             <Icon name="input" size={20} color='white' />
             <TextButton allowFontScaling={false}  >ENTRAR</TextButton>
           </ButtonSubmit>
         </Form>
 
-        <TouchableOpacity onPress={() => navigation.navigate('SignUp')} >
+        <TouchableOpacity testID="btnSignUp" onPress={() => navigation.navigate('SignUp')} >
           <RegisterText>Registar-se</RegisterText>
         </TouchableOpacity>
       </Content>
